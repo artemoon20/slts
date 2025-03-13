@@ -1,0 +1,29 @@
+@import '../../shared/styles/vars.scss';
+
+.auth-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    padding: 70px 95px 0px 95px;
+
+    &__logo-content {
+        display: flex;
+        align-items: flex-end;
+        gap: 20px
+    }
+
+    &__version, &__what-is-app-about-action {
+        color: $accentLight
+    }
+
+    &__what-is-app-about-action {
+        font-size: 20px;
+
+        &:hover {
+            text-decoration: underline;
+
+            cursor: pointer;
+        }
+    }
+}
