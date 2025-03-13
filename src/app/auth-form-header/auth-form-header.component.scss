@@ -1,0 +1,25 @@
+@import '../../shared/styles/vars.scss';
+
+.auth-form-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+
+    margin-bottom: 30px;
+
+    &__title {
+        font-size: 48px;
+
+        font-weight: bold;
+
+        color: $accent;
+    }
+
+    &__subtitle {
+        font-size: 20px;
+
+        color: $accentLight;
+
+        padding-bottom: 15px;
+    }
+}

@@ -1,0 +1,14 @@
+<div class="sign-in-form">
+    <app-auth-form-header [title]="title" [subtitle]="subtitle" [link]="link" />
+    <form class="sign-in-form__form-body" [formGroup]="form">
+        <div class="sign-in-form__field-wrapper">
+            <input class="sign-in-form__field" formControlName="email" name="email" type="text" placeholder="Email">
+            <span class="sign-in-form__error-message" *ngIf="form.controls['email'].errors">{{ form.controls['email'].errors['errorMessage'] }}</span>
+        </div>
+        <div class="sign-in-form__field-wrapper">
+            <input class="sign-in-form__field" formControlName="password" name="password" type="password" placeholder="Password">
+            <span class="sign-in-form__error-message" *ngIf="form.controls['password'].errors">{{ form.controls['password'].errors['errorMessage'] }}</span>
+        </div>
+        <button type="submit" class="sign-in-form__submit-btn" (click)="formSubmit()">Proceed</button>
+    </form>
+</div>

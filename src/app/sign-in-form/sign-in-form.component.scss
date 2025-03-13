@@ -1,0 +1,86 @@
+@import '../../shared/styles/vars.scss';
+
+:host {
+    display: flex;
+    flex: 1;
+}
+
+.sign-in-form {
+    flex-grow: 1;
+
+    padding-bottom: 106px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &__form-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: 100%;
+    }
+
+    &__field {
+        border: 2px solid $accent;
+
+        border-radius: 5px;
+
+        padding: 10px 0px 10px 20px;
+
+        font-size: 18px;
+
+        min-width: 350px;
+
+        color: $accent;
+
+        &::placeholder {
+            color: $accentLight;
+        }
+    }
+
+    &__field-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        margin-bottom: 10px;
+    }
+
+    &__submit-btn {
+        min-width: 350px;
+        
+        border: none;
+        border-radius: 5px;
+
+        margin-top: 10px;
+        padding: 10px 0px;
+
+        letter-spacing: 1px;
+
+        font-size: 14px;
+
+        background-color: $accent;
+
+        color: #fff;
+
+        transition: .2s ease-in-out;
+
+        &:hover {
+            background-color: $accentLight;
+
+            transition: .2s ease-in;
+
+            cursor: pointer;
+        }
+    }
+
+    &__error-message {
+        padding: 5px 0px 0px 10px;
+
+        font-size: 14px;
+
+        color: red;
+    }
+}
