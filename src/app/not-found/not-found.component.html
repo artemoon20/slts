@@ -1,0 +1,14 @@
+<div class="not-found-wrapper">
+    <app-auth-header></app-auth-header>
+    <div class="not-found-content">
+        <div class="not-found-form">
+            <div class="not-found-form__header">
+                <h1 class="not-found-form__title">{{ title }}</h1>
+                <p class="not-found-form__message">The page you're looking for doesn't exist.</p>
+            </div>
+            <div class="not-found-form__actions">
+                <a [routerLink]="link" class="not-found-form__back-btn">{{ subtitle }}</a>
+            </div>
+        </div>
+    </div>
+</div> 

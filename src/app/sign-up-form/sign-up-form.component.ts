@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormGroup, AbstractControl, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
- 
-import { AuthFormHeaderComponent } from '../auth-form-header/auth-form-header.component';
+import { Router } from '@angular/router';
 
-const REQUIRED_ERROR_MESSAGE = 'Field is required';
+import { AuthService } from '../../services/auth.service';
+import { AuthFormHeaderComponent } from '../auth-form-header/auth-form-header.component';
+import { SignUpResponse } from '../../models/auth-responses'; 
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -13,54 +15,60 @@ const REQUIRED_ERROR_MESSAGE = 'Field is required';
   styleUrl: './sign-up-form.component.scss'
 })
 export class SignUpFormComponent {
+  signUpForm: FormGroup;
+
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private notificationService = inject(NotificationService);
   title = 'Sign Up';
   subtitle = 'Sign In';
-  link = '/sign-in';
+  link = '/auth/sign-in';
 
-  form = new FormGroup({
-    email: new FormControl(''),
-    name: new FormControl(''),
-    password: new FormControl(''),
-    repeatPassword: new FormControl('')
-  });
+  constructor(private fb: FormBuilder) {
+    this.signUpForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      name: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      repeatPassword: ['', [Validators.required, Validators.minLength(8)]],
+    }, {
+      validators: [this.passwordMatchValidator]
+    });
+  }
 
-  emailControl = this.form.controls['email'];
-  nameControl = this.form.controls['name'];
-  passwordControl = this.form.controls['password']
-  repeatPassword = this.form.controls['repeatPassword'];
+  private passwordMatchValidator(control: AbstractControl) {
+    const password = control.get('password')?.value;
+    const repeatPassword = control.get('repeatPassword')?.value;
 
-  showUserLoggedIn(email: string, password: string) {
-    console.log(`User with email: ${email} and password: ${password} is logged in`);
+    if (password && !repeatPassword) {
+      return { passwordMismatch: true };
+    }
+
+    if (!password && repeatPassword) {
+      return { passwordMismatch: true };
+    }
+
+    return password === repeatPassword ? null : { passwordMismatch: true };
   }
 
   formSubmit() {
-    const { value: emailValue } = this.emailControl;
-    const { value: passwordValue } = this.passwordControl;
-    const { value: nameValue } = this.nameControl;
-    const { value: repeatPasswordValue } = this.repeatPassword;
+    const { email, password, name } = this.signUpForm.value;
 
-    if (!emailValue) {
-      this.emailControl.setErrors({ errorMessage: REQUIRED_ERROR_MESSAGE });
+    if (this.signUpForm.invalid) {
+      this.signUpForm.markAllAsTouched();
+
+      return;
     }
 
-    if (!passwordValue) {
-      this.passwordControl.setErrors({ errorMessage: REQUIRED_ERROR_MESSAGE })
-    }
-
-    if (!nameValue) {
-      this.nameControl.setErrors({ errorMessage: REQUIRED_ERROR_MESSAGE })
-    }
-
-    if (!repeatPasswordValue) {
-      this.repeatPassword.setErrors({ errorMessage: REQUIRED_ERROR_MESSAGE })
-    }
-
-    if (repeatPasswordValue !== passwordValue) {
-      this.repeatPassword.setErrors({ errorMessage: 'Must equal password' })
-    }
-
-    if (emailValue && passwordValue) {
-      this.showUserLoggedIn(emailValue, passwordValue);
-    }
+    this.authService.signUp(email, password, 'admin', 'active', name).subscribe({
+      next: (res: SignUpResponse) => {
+      if (res.accessToken) {
+        this.authService.setToken(res.accessToken);
+        this.router.navigate(['/dashboard']);
+      }
+      },
+      error: (err: any) => {
+        this.notificationService.show(err.error.message || 'Email or password is incorrect');
+      }
+    });
   }
 }

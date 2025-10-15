@@ -1,0 +1,49 @@
+@import '../../shared/styles/vars.scss';
+
+.client-form-body {
+    &__field {
+        width: 100%;
+
+        padding: 10px 0px 10px 15px;
+
+        border: none;
+        border: 1px solid $accentLight;
+        border-radius: 5px;
+
+        font-size: 14px;
+        color: $accentLight;
+
+        &--error {
+            border-color: red;
+            border: 2px solid red;
+        }
+    }
+    
+    &__field-wrapper {
+        display: flex;
+        align-items: center;
+
+        gap: 20px;
+
+        margin-bottom: 10px;
+    }
+
+    &__fields-group {
+        margin-bottom: 25px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__field-group-label {
+        display: block;
+
+        color: $accentLight;
+
+        opacity: 0.5;
+
+        padding-left: 15px;
+        margin-bottom: 10px;
+    }
+}

@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-auth-form-header',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './auth-form-header.component.html',
   styleUrl: './auth-form-header.component.scss'
 })

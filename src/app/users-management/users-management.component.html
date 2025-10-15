@@ -1,0 +1,81 @@
+<div class="users-management">
+    <div class="users-management__header">
+        <h1>{{ pageTitle }}</h1>
+        <span class="users-management__users-count">{{ pageSubtitle }}</span>
+    </div>
+    <app-management-side-content-actions 
+        [headingLabel]="headingLabel" 
+        [headingSublabel]="headingSublabel"
+        [isSearchVisible]="isSearchVisible"
+        [isMainActionVisible]="isMainActionVisible"
+        [mainActionButtonName]="mainActionButtonName"
+        [mainActionButtonLabel]="mainActionButtonLabel"
+        [buttonTypes]="ButtonTypes"
+        (mainActionClickEmitter)="openAddUserModal()"
+    />
+    <app-table [contentToRender]="users">
+        <ng-template appColumn key="clientName" title="Client Name" width="35%" let-item>
+            <div class="users-management__table-item users-management__client-name-wrapper">
+                <img class="users-management__table-item users-management__client-avatar" [src]="'https://miro.medium.com/v2/resize:fit:2400/1*vdmq7owSmx0KcYBRLG965Q.png'" alt="User Avatar" />
+                <div class="users-management__table-item users-management__client-name-info">
+                    <p class="users-management__table-item users-management__client-name">
+                        {{ item.firstName }} {{ item.lastName }}
+                    </p>
+                    <span class="users-management__table-item users-management__client-email">{{ item.email }}</span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template appColumn key="phone" title="Phone" width="25%" let-item>
+            <span class="users-management__table-item users-management__phone">{{ item.phone }}</span>
+        </ng-template>
+        <ng-template appColumn key="role" title="Role" width="20%" let-item>
+            <span class="users-management__table-item users-management__role">{{ item.role }}</span>
+        </ng-template>
+        <ng-template appColumn key="status" title="Status" width="20%" let-item>
+            <span class="users-management__table-item users-management__status">{{ item.status }}</span>
+        </ng-template>
+        <ng-template appColumn key="actions" width="3%" let-item>
+            <div class="users-management__table-item users-management__actions" (click)="onMoreActionsClick($event, item)">
+                <fa-icon [icon]="faEllipsisVertical" class="users-management__actions-icon"></fa-icon>
+            </div>
+        </ng-template>
+    </app-table>
+</div>
+
+<!-- Context Menu -->
+<div 
+    *ngIf="showContextMenu" 
+    class="context-menu"
+    [style.left.px]="contextMenuPosition.x"
+    [style.top.px]="contextMenuPosition.y"
+    (click)="$event.stopPropagation()"
+>
+    <div class="context-menu__item" (click)="onViewUser()">
+        <span class="context-menu__text">view</span>
+        <fa-icon [icon]="faEye" class="context-menu__icon"></fa-icon>
+    </div>
+    <div class="context-menu__item" (click)="onEditUser()">
+        <span class="context-menu__text">edit</span>
+        <fa-icon [icon]="faEdit" class="context-menu__icon"></fa-icon>
+    </div>
+    <div class="context-menu__item context-menu__item--delete" (click)="onDeleteUser()">
+        <span class="context-menu__text">delete</span>
+        <fa-icon [icon]="faTrash" class="context-menu__icon context-menu__icon--delete"></fa-icon>
+    </div>
+</div>
+
+<!-- Backdrop to close menu -->
+<div 
+    *ngIf="showContextMenu" 
+    class="context-menu-backdrop"
+    (click)="hideContextMenu()"
+></div>
+
+<!-- Client Modal -->
+<div class="users-management__client-modal-wrapper" *ngIf="showAddClientModal">
+    <app-add-client (closeModalEmitter)="closeAddUserModal()" />
+</div>
+
+<div class="users-management__edit-client-modal-wrapper" *ngIf="showEditClientModal">
+    <app-edit-client (closeModalEmitter)="closeEditUserModal()" [userId]="userId" />
+</div>

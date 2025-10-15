@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
+import { AuthService } from '../../services/auth.service';
 import { AuthFormHeaderComponent } from '../auth-form-header/auth-form-header.component';
+import { SignInResponse } from '../../models/auth-responses';
 
-const REQUIRED_ERROR_MESSAGE = 'Field is required';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -13,36 +16,42 @@ const REQUIRED_ERROR_MESSAGE = 'Field is required';
   styleUrl: './sign-in-form.component.scss'
 })
 export class SignInFormComponent {
+  signInForm: FormGroup;
+
   title = 'Sign In';
   subtitle = 'Sign Up';
-  link = '/sign-up';
+  link = '/auth/sign-up';
 
-  form = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
-  })
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private notificationService = inject(NotificationService);
 
-  emailControl = this.form.controls['email'];
-  passwordControl = this.form.controls['password']
-
-  showUserLoggedIn(email: string, password: string) {
-    console.log(`User with email: ${email} and password: ${password} is logged in`);
+  constructor(private fb: FormBuilder) {
+    this.signInForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
   }
 
   formSubmit() {
-    const { value: emailValue } = this.emailControl;
-    const { value: passwordValue } = this.passwordControl;
+    const { email, password } = this.signInForm.value;
 
-    if (!emailValue) {
-      this.emailControl.setErrors({ errorMessage: REQUIRED_ERROR_MESSAGE });
+    if (this.signInForm.invalid) {
+      this.signInForm.markAllAsTouched();
+
+      return;
     }
 
-    if (!passwordValue) {
-      this.passwordControl.setErrors({ errorMessage: REQUIRED_ERROR_MESSAGE })
-    }
-
-    if (emailValue && passwordValue) {
-      this.showUserLoggedIn(emailValue, passwordValue);
-    }
+    this.authService.signIn(email, password).subscribe({
+      next: (res: SignInResponse) => {
+        if (res.accessToken) {
+          this.authService.setToken(res.accessToken);
+          this.router.navigate(['/dashboard']);
+        }
+      },
+      error: (err: any) => {
+        this.notificationService.show(err.error.message || 'Email or password is incorrect');
+      }
+    });
   }
 }

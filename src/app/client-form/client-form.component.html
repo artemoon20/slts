@@ -1,0 +1,19 @@
+<div class="client-form">
+    <app-client-form-header 
+        [title]="formHeaderTitle" 
+        [subtitle]="formHeaderSubtitle" 
+        class="client-form__header" 
+        (closeModalEmitter)="closeModal()" />
+    <app-client-form-body 
+        class="client-form__body" 
+        [clientForm]="clientForm"
+        (formSubmit)="onSubmit()" />
+    <app-client-form-footer 
+        class="client-form__footer" 
+        [cancelButtonText]="cancelButtonText"
+        [confirmButtonText]="confirmButtonText"
+        [isLoading]="isLoading"
+        (closeModalEmitter)="closeModal()"
+        (submitFormEmitter)="onSubmit()"
+    />
+</div>
