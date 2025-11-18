@@ -33,13 +33,23 @@
                     <input class="client-form-body__field" type="tel" placeholder="Phone" [formControlName]="'phone'" />
                 </div>
             </div>
-            <div class="client-form-body__field-container">
-                <app-select
-                    [options]="genderOptions"
-                    placeholder="Gender"
-                    [formControlName]="'gender'"
-                    [disabled]="false"
-                />
+            <div class="client-form-body__field-wrapper">
+                <div class="client-form-body__field-container">
+                    <app-select
+                        [options]="roleOptions"
+                        placeholder="Role"
+                        [formControlName]="'role'"
+                        [disabled]="false"
+                    />
+                </div>
+                <div class="client-form-body__field-container">
+                    <app-select
+                        [options]="genderOptions"
+                        placeholder="Gender"
+                        [formControlName]="'gender'"
+                        [disabled]="false"
+                    />
+                </div>
             </div>
         </div>
     </div>
@@ -67,7 +77,6 @@
                 <input class="client-form-body__field" type="text" placeholder="Expiry Date" name="expiry" [formControlName]="'expiryDate'" />
                 <input class="client-form-body__field" type="text" placeholder="Currency" name="currency" [formControlName]="'currency'" />
             </div>
-            <input class="client-form-body__field" type="text" placeholder="IBAN" name="iban" [formControlName]="'iban'" />
         </div>
     </div>
 

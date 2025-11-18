@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { SelectComponent } from '../../shared/components/select';
-import { genderOptions } from '../../shared/constants/app-constants';
+import { genderOptions, roleOptions } from '../../shared/constants/app-constants';
 
 @Component({
   selector: 'app-client-form-body',
@@ -20,4 +20,5 @@ export class ClientFormBodyComponent {
   }
 
   genderOptions = genderOptions;
+  roleOptions = roleOptions;
 }

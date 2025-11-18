@@ -3,8 +3,9 @@
 .client-form-body {
     &__field {
         width: 100%;
+        height: 44px; // Фиксированная высота для всех полей
 
-        padding: 10px 0px 10px 15px;
+        padding: 10px 15px 10px 15px;
 
         border: none;
         border: 1px solid $accentLight;
@@ -17,6 +18,20 @@
             border-color: red;
             border: 2px solid red;
         }
+
+        // Специальные стили для date input
+        &[type="date"] {
+            color-scheme: light; // Для лучшей совместимости с браузерами
+            
+            &::-webkit-calendar-picker-indicator {
+                cursor: pointer;
+                opacity: 0.7;
+                
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
     }
     
     &__field-wrapper {
@@ -26,6 +41,20 @@
         gap: 20px;
 
         margin-bottom: 10px;
+    }
+
+    &__field-container {
+        flex: 1;
+        min-width: 0; // Позволяет flex элементам сжиматься
+        
+        // Обеспечиваем одинаковую ширину для всех полей в строке
+        &:first-child {
+            flex: 1;
+        }
+        
+        &:last-child {
+            flex: 1;
+        }
     }
 
     &__fields-group {

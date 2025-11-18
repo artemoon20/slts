@@ -25,11 +25,11 @@ export class SidebarDashboardNavigationComponent {
   faChartLine = faChartLine;
 
   navigationItems = [
-    {
-      icon: faDashboard,
-      title: 'Dashboard',
-      path: '/dashboard'
-    },
+    // {
+    //   icon: faDashboard,
+    //   title: 'Dashboard',
+    //   path: '/dashboard'
+    // },
     {
       icon: faUsers,
       title: 'Users',

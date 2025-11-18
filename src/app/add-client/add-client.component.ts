@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormGroup } from '@angular/forms';
 
 import { ClientFormComponent } from '../client-form/client-form.component';
-import { UsersService } from '../../services/users.service';
-import { CreateClientRequest } from '../../models/client-form.model';
+import { ClientsService } from '../../services/clients.service';
+import { CreateClientRequest, ClientFormModel } from '../../models/client-form.model';
 import { NotificationService } from '../../services/notification.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class AddClientComponent {
   @Output() closeModalEmitter = new EventEmitter<void>();
 
   constructor(
-    private usersService: UsersService,
+    private clientsService: ClientsService,
     private notificationService: NotificationService
   ) {}
 
@@ -29,42 +29,32 @@ export class AddClientComponent {
     this.closeModalEmitter.emit();
   }
 
-  async createClient(form: FormGroup) {
-    if (form.invalid) {
-      this.markFormGroupTouched(form);
-      this.notificationService.showError('Please fill in all required fields');
-
-      return;
-    }
-
+  async createClient(formData: Partial<ClientFormModel>) {
     this.isLoading = true;
 
     try {
-      const formValue = form.value;
-
       const clientData: CreateClientRequest = {
-        first_name: formValue.firstName,
-        last_name: formValue.lastName || null,
-        birth_date: formValue.birthDate ? new Date(formValue.birthDate) : null,
-        email: formValue.email,
-        role: formValue.role,
-        phone: formValue.phone || null,
-        gender: formValue.gender || null,
-        country: formValue.country || null,
-        city: formValue.city || null,
-        zip: formValue.zip || null,
-        address: formValue.address || null,
-        state: formValue.state || null,
-        card_number: formValue.cardNumber || null,
-        expiry_date: formValue.expiryDate || null,
-        currency: formValue.currency || null,
-        iban: formValue.iban || null,
-        company_name: formValue.companyName || null,
-        department: formValue.department || null,
-        position: formValue.position || null,
+        first_name: formData.firstName!,
+        last_name: formData.lastName || null,
+        birth_date: formData.birthDate ? new Date(formData.birthDate) : null,
+        email: formData.email!,
+        role: formData.role!,
+        phone: formData.phone || null,
+        gender: formData.gender || null,
+        country: formData.country || null,
+        city: formData.city || null,
+        zip: formData.zip || null,
+        address: formData.address || null,
+        state: formData.state || null,
+        card_number: formData.cardNumber || null,
+        expiry_date: formData.expiryDate || null,
+        currency: formData.currency || null,
+        company_name: formData.companyName || null,
+        department: formData.department || null,
+        position: formData.position || null,
       };
 
-      await this.usersService.createClient(clientData).toPromise();
+      await this.clientsService.createClient(clientData).toPromise();
       
       this.notificationService.showSuccess('Client created successfully');
 
@@ -78,11 +68,4 @@ export class AddClientComponent {
     }
   }
 
-  private markFormGroupTouched(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(key => {
-      const control = formGroup.get(key);
-
-      control?.markAsTouched();
-    });
-  }
 }

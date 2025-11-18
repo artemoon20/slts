@@ -1,26 +1,30 @@
-<table class="table">
-    <colgroup>
-        @for (col of columns; track col.key) {
-          <col [style.width]="col.width" />
-        }
-      </colgroup>
-    <thead class="table-header">
-        <tr class="table-header__items">
+@if (isLoading()) {
+    <app-loader [color]="'primary'" />    
+} @else {
+    <table class="table">
+        <colgroup>
             @for (col of columns; track col.key) {
-                <th class="table-header__item">{{ col.title }}</th>
+              <col [style.width]="col.width" />
             }
-        </tr>
-    </thead>
-    <tbody class="table-body">
-        @for (item of contentToRender; track item.id) {
-            <tr class="table-body__item">
+          </colgroup>
+        <thead class="table-header">
+            <tr class="table-header__items">
                 @for (col of columns; track col.key) {
-                    <td>
-                        <ng-container 
-                            *ngTemplateOutlet="col.template; context: {$implicit: item}">
-                        </ng-container>
-                    </td>
+                    <th class="table-header__item">{{ col.title }}</th>
                 }
-        }
-    </tbody>
-</table>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @for (item of contentToRender; track item.id) {
+                <tr class="table-body__item">
+                    @for (col of columns; track col.key) {
+                        <td>
+                            <ng-container 
+                                *ngTemplateOutlet="col.template; context: {$implicit: item}">
+                            </ng-container>
+                        </td>
+                    }
+            }
+        </tbody>
+    </table>
+}

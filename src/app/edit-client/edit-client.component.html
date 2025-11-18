@@ -1,7 +1,16 @@
 <div class="edit-client">
-    <app-client-form 
-        [formHeaderTitle]="formHeaderTitle" 
-        [cancelButtonText]="'Cancel'"
-        [confirmButtonText]="'Save Changes'"
-        (closeModalEmitter)="closeModal()" />
+    @if (isLoading()) {
+        <app-loader />
+    }
+    @else {
+        <app-client-form 
+            [formHeaderTitle]="formHeaderTitle" 
+            [cancelButtonText]="'Cancel'"
+            [confirmButtonText]="'Save Changes'"
+            [userData]="user"
+            (closeModalEmitter)="closeModal()"
+            (onClientFormSubmit)="updateUser($event)"
+            [isLoading]="isLoading()"
+        />
+    }
 </div>

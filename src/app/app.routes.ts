@@ -49,7 +49,8 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                component: DashboardComponent
+                component: DashboardComponent,
+                // redirectTo: '/dashboard/users',
             },
             {
                 path: 'users',

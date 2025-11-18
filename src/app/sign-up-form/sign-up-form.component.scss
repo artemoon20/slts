@@ -23,6 +23,16 @@
         max-width: 450px;
 
         width: 100%;
+
+        @media (max-width: $screen-xs-width) {
+            max-width: none;
+
+            padding: 0px 30px;
+        }
+
+        @media (max-width: $screen-xss-width) {
+            padding: 0px 15px;
+        }
     }
 
     &__field {
@@ -44,6 +54,10 @@
 
         &--error {
             border-color: red;
+        }
+
+        @media (max-width: $screen-md-width) {
+            font-size: 16px;
         }
     }
 
@@ -96,6 +110,12 @@
         display: flex;
 
         gap: 15px;
+
+        @media (max-width: $screen-xss-width) {
+            flex-direction: column;
+
+            gap: 10px;
+        }
     }
 
     &__password-container {

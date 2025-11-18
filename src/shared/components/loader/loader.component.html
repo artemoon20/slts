@@ -1,0 +1,36 @@
+<div class="loader-container" 
+     [class.loader-overlay]="overlay"
+     [class.loader-fullscreen]="fullScreen">
+  
+  <div class="loader" 
+       [class]="'loader-' + variant + ' loader-' + size + ' loader-' + color">
+    
+    <!-- Spinner Variant -->
+    <div *ngIf="variant === 'spinner'" class="spinner">
+      <div class="spinner-ring"></div>
+    </div>
+    
+    <!-- Dots Variant -->
+    <div *ngIf="variant === 'dots'" class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    
+    <!-- Pulse Variant -->
+    <div *ngIf="variant === 'pulse'" class="pulse">
+      <div class="pulse-circle"></div>
+    </div>
+    
+    <!-- Bars Variant -->
+    <div *ngIf="variant === 'bars'" class="bars">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+  
+  <!-- Loading Text -->
+  <div *ngIf="text" class="loader-text">{{ text }}</div>
+</div>

@@ -1,4 +1,4 @@
-import { USER_ROLES } from "../shared/constants/app-constants";
+import { ClientRoleType } from "../shared/constants/app-constants";
 
 export interface ClientFormModel {
   // client info
@@ -6,7 +6,7 @@ export interface ClientFormModel {
   lastName: string;
   birthDate: string;
   email: string;
-  role: USER_ROLES.CLIENT;
+  role: ClientRoleType;
   phone: string;
   gender: string;
   // address info
@@ -19,7 +19,6 @@ export interface ClientFormModel {
   cardNumber: string;
   expiryDate: string;
   currency: string;
-  iban: string;
   // company info
   companyName: string;
   department: string;
@@ -28,10 +27,10 @@ export interface ClientFormModel {
 
 export interface CreateClientRequest {
   first_name: string;
-  last_name: string;
+  last_name: string | null;
   birth_date: Date | null;
   email: string;
-  role: USER_ROLES.CLIENT;
+  role: ClientRoleType;
   phone: string | null;
   gender: string | null;
   // address info
@@ -44,7 +43,6 @@ export interface CreateClientRequest {
   card_number: string | null;
   expiry_date: string | null;
   currency: string | null;
-  iban: string | null;
   // company info
   company_name: string | null;
   department: string | null;

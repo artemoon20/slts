@@ -10,8 +10,7 @@
 
     height: 100%;
 
-    padding-right: 25px;
-    padding-top: 25px;
+    padding: 25px 25px 25px 0px;
     
     &__header {
         display: flex;
@@ -66,7 +65,7 @@
             transition: all 0.3s ease;
 
             .sidebar-dashboard-navigation__menu-item-icon {
-                color: #CD503C;
+                color: $primary;
 
                 transition: all 0.3s ease;
             }
@@ -77,7 +76,7 @@
             border-radius: 10px;
 
             .sidebar-dashboard-navigation__menu-item-icon {
-                color: #CD503C;
+                color: $primary;
             }
         }
     }
