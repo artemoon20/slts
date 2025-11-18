@@ -1,0 +1,12 @@
+<button class="reusable-button" 
+        name="{{ buttonName }}"
+        [ngClass]="buttonTypeClass"
+        (click)="onButtonClick()"
+        [type]="type"
+        [disabled]="isDisabled"
+>
+        <div class="reusable-button__content">
+            <fa-icon [icon]="icon" class="reusable-button__icon" *ngIf="isIconVisible"></fa-icon>
+            <span class="reusable-button__label">{{ label }}</span>
+        </div>
+</button>

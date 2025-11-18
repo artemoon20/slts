@@ -1,0 +1,17 @@
+<div class="management-side-content-actions">
+    <div class="management-side-content-actions__actions-heading">
+        <h2 class="management-side-content-actions__actions-heading-label">{{ headingLabel}}</h2>
+        <span class="management-side-content-actions__actions-heading-sublabel">{{ headingSublabel }}</span>
+    </div>
+    <div class="management-side-content-actions__actions">
+        <div class="management-side-content-actions__actions-item management-side-content-actions__actions-item-search" *ngIf="isSearchVisible">
+            <input name="search" class="management-side-content-actions__actions-item-input" type="text" placeholder="Search...">
+        </div>
+        <div *ngIf="isAdditionalActionVisible" class="management-side-content-actions__actions-item management-side-content-actions__actions-item-additional-action">
+            <app-reusable-button buttonName="{{ additionalActionButtonName }}" (onButtonClickEmitter)="onAdditionalActionClick()" class="management-side-content-actions__actions-item-button" [label]="additionalActionButtonLabel" [buttonType]="buttonTypes.SECONDARY"></app-reusable-button>
+        </div>
+        <div *ngIf="isMainActionVisible" class="management-side-content-actions__actions-item management-side-content-actions__actions-item-main-action">
+            <app-reusable-button buttonName="{{ mainActionButtonName }}" (onButtonClickEmitter)="onMainActionClick()" class="management-side-content-actions__actions-item-button" [label]="mainActionButtonLabel" [buttonType]="buttonTypes.PRIMARY"></app-reusable-button>
+        </div>
+    </div>
+</div>

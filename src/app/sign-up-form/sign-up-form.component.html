@@ -1,0 +1,60 @@
+<div class="sign-up-form">
+    <app-auth-form-header [title]="title" [subtitle]="subtitle" [link]="link" />
+    <form class="sign-up-form__form-body" [formGroup]="signUpForm">
+        <div class="sign-up-form__field-wrapper">
+            <input 
+                class="sign-up-form__field" 
+                [ngClass]="{'sign-up-form__field--error': signUpForm.get('email')?.errors && signUpForm.get('email')?.touched}" 
+                formControlName="email" 
+                name="email" 
+                type="text" 
+                placeholder="Email"
+            >
+            <span 
+            class="sign-up-form__error-message" 
+            *ngIf="signUpForm.get('email')?.hasError('required') && signUpForm.get('email')?.touched">Email is required</span>
+        </div>
+        <div class="sign-up-form__field-wrapper">
+            <input 
+                class="sign-up-form__field" 
+                [ngClass]="{'sign-up-form__field--error': signUpForm.get('name')?.errors && signUpForm.get('name')?.touched}" 
+                formControlName="name" 
+                name="name" 
+                type="text" 
+                placeholder="Name"
+            >
+            <span 
+                class="sign-up-form__error-message" 
+                *ngIf="signUpForm.get('name')?.hasError('required') && signUpForm.get('name')?.touched">Name is required
+            </span>
+        </div>
+        <div class="sign-up-form__field-wrapper">
+            <div class="sign-up-form__passwords-wrapper">
+                <div class="sign-up-form__password-container sign-up-form__password-wrapper">
+                    <input 
+                        class="sign-up-form__field" 
+                        [ngClass]="{'sign-up-form__field--error': signUpForm.get('password')?.errors && signUpForm.get('password')?.touched}" 
+                        formControlName="password" 
+                        name="password" 
+                        type="password" 
+                        placeholder="Password"
+                    >
+                    <span class="sign-up-form__error-message" *ngIf="signUpForm.get('password')?.hasError('required') && signUpForm.get('password')?.touched">Password is required</span>
+                    <span class="sign-up-form__error-message" *ngIf="signUpForm.get('password')?.hasError('minlength') && signUpForm.get('password')?.touched">Must be 8 or more characters long</span>
+                </div>
+                <div class="sign-up-form__password-container sign-up-form__repeat-password-wrapper">
+                    <input 
+                        class="sign-up-form__field" 
+                        [ngClass]="{'sign-up-form__field--error': signUpForm.hasError('passwordMismatch')}" 
+                        formControlName="repeatPassword" 
+                        name="repeatPassword" 
+                        type="password" 
+                        placeholder="Repeat"
+                    >
+                    <span class="sign-up-form__error-message" *ngIf="signUpForm.hasError('passwordMismatch')">Passwords must match</span>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="sign-up-form__submit-btn" (click)="formSubmit()">Proceed</button>
+    </form>
+</div>

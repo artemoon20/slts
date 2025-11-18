@@ -1,0 +1,78 @@
+@import '../../shared/styles/vars.scss';
+
+.reusable-button {
+    padding: 8px 16px;
+    min-height: 36px;
+    min-width: 80px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    background: #f5f5f5;
+    color: #333;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &--primary {
+        background-color: #383838; // fallback
+        background-color: $accent;
+
+        text-align: center;
+
+        color: #fff;
+
+        transition: .2s ease-in-out;
+
+        &:hover {
+            background-color: #444444; // fallback
+            background-color: $accentHover;
+
+            transition: .2s ease-in;
+
+            cursor: pointer;
+        }
+    }
+
+    &--secondary {
+        border: 1px solid #EBEBEB; // fallback
+        border: 1px solid $lightGray;
+
+        color: #383838; // fallback
+        color: $accent;
+
+        transition: .2s ease-in-out;
+
+        &:hover {
+            background-color: #EBEBEB; // fallback
+            background-color: $lightGray;
+
+            transition: .2s ease-in;
+
+            cursor: pointer;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    &__icon {
+        font-size: 14px;
+    }
+
+    &__label {
+        white-space: nowrap;
+    }
+}

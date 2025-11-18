@@ -1,0 +1,53 @@
+@import '../../shared/styles/vars.scss';
+
+.auth-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    padding: 70px 95px 0px 95px;
+
+    &__logo-content {
+        display: flex;
+        align-items: flex-end;
+        gap: 20px;
+
+        @media (max-width: $screen-xs-width) {
+            gap: 7px;
+        }
+    }
+
+    &__version, &__what-is-app-about-action {
+        color: $accentLight
+    }
+
+    &__what-is-app-about-action {
+        font-size: 20px;
+
+        &:hover {
+            text-decoration: underline;
+
+            cursor: pointer;
+        }
+
+        @media (max-width: $screen-xs-width) {
+            font-size: 18px;
+        }
+
+        @media (max-width: $screen-xss-width) {
+            display: none;
+        }
+    }
+
+    @media (max-width: $screen-md-width) {
+        padding: 70px 50px 0px 50px
+    }
+
+    @media (max-width: $screen-xs-width) {
+        padding: 70px 30px 0px 30px;
+    }
+
+    @media (max-width: $screen-xss-width) {
+        padding: 70px 15px 0px 15px;
+    }
+}

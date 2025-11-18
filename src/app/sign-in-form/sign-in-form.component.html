@@ -1,0 +1,21 @@
+<div class="sign-in-form">
+    <app-auth-form-header [title]="title" [subtitle]="subtitle" [link]="link" />
+    <form class="sign-in-form__form-body" [formGroup]="signInForm">
+        <div class="sign-in-form__field-wrapper">
+            <input class="sign-in-form__field" 
+                formControlName="email" name="email" type="text" placeholder="Email"
+                [ngClass]="{'sign-in-form__field--error': signInForm.get('email')?.errors && signInForm.get('email')?.touched}"
+            >
+            <span class="sign-in-form__error-message" *ngIf="signInForm.get('email')?.hasError('required') && signInForm.get('email')?.touched">Email is required</span>
+        </div>
+        <div class="sign-in-form__field-wrapper">
+            <input class="sign-in-form__field" 
+                formControlName="password" name="password" type="password" placeholder="Password"
+                [ngClass]="{'sign-in-form__field--error': signInForm.get('password')?.errors && signInForm.get('password')?.touched}"
+            >
+            <span class="sign-in-form__error-message" *ngIf="signInForm.get('password')?.hasError('required') && signInForm.get('password')?.touched">Password is required</span>
+        </div>
+        <button type="submit" class="sign-in-form__submit-btn" (click)="formSubmit()">Proceed</button>
+        <span class="sign-in-form__global-error-message" *ngIf="signInForm.errors?.['invalidCredentials']">{{ signInForm.errors?.['message'] }}</span>
+    </form>
+</div>

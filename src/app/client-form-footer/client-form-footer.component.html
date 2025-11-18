@@ -1,0 +1,16 @@
+<div class="client-form-footer">
+    <app-reusable-button 
+        [buttonName]="'cancel'" 
+        [label]="cancelButtonText" 
+        [buttonType]="ButtonType.SECONDARY" 
+        [isDisabled]="isLoading"
+        class="client-form-footer__button-cancel" 
+        (onButtonClickEmitter)="closeModal()" />
+    <app-reusable-button 
+        [buttonName]="'save'" 
+        [label]="isLoading ? 'Creating...' : confirmButtonText" 
+        [buttonType]="ButtonType.PRIMARY" 
+        [isDisabled]="isLoading"
+        class="client-form-footer__button-confirm" 
+        (onButtonClickEmitter)="submitForm()" />
+</div>

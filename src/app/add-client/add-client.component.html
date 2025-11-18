@@ -1,0 +1,11 @@
+<div class="add-client">
+    <app-client-form 
+        [formHeaderTitle]="formHeaderTitle" 
+        [formHeaderSubtitle]="formHeaderSubtitle" 
+        [cancelButtonText]="'Cancel'"
+        [confirmButtonText]="'Add Client'"
+        [isLoading]="isLoading"
+        (closeModalEmitter)="closeModal()"
+        (onClientFormSubmit)="createClient($event)"
+    />
+</div>
