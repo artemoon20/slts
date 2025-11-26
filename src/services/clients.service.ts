@@ -34,4 +34,12 @@ export class ClientsService {
       })
     );
   }
+
+  deleteClient(clientId: string) {
+    return this.http.delete<ResponseModel<void>>(`${BASE_API_URL}/clients/delete/${clientId}`).pipe(
+      catchError((error) => {
+        return throwError(() => new Error(error.message));
+      })
+    );
+  }
 }

@@ -13,7 +13,7 @@
         [buttonTypes]="ButtonTypes"
         (mainActionClickEmitter)="openAddUserModal()"
     />
-    <app-table [contentToRender]="users" [isLoading]="isLoading">
+    <app-table [contentToRender]="users()" [isLoading]="isLoading">
         <ng-template appColumn key="clientName" title="Client Name" width="35%" let-item>
             <div class="users-management__table-item users-management__client-name-wrapper">
                 <img class="users-management__table-item users-management__client-avatar" [src]="'https://miro.medium.com/v2/resize:fit:2400/1*vdmq7owSmx0KcYBRLG965Q.png'" alt="User Avatar" />
@@ -73,7 +73,7 @@
 
 <!-- Client Modal -->
 <div class="users-management__client-modal-wrapper" *ngIf="showAddClientModal">
-    <app-add-client (closeModalEmitter)="closeAddUserModal()" />
+    <app-add-client (closeModalEmitter)="closeAddUserModal()" (onClientCreated)="onClientCreated()" />
 </div>
 
 <div class="users-management__edit-client-modal-wrapper" *ngIf="showEditClientModal">

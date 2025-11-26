@@ -1,4 +1,4 @@
-import { Component, inject, HostListener, signal } from '@angular/core';
+import { Component, inject, HostListener, signal, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit, faEllipsisVertical, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +15,7 @@ import { ColumnDirective } from '../../shared/directives/column.directive';
 import { ClientsService } from '../../services/clients.service';
 import { NotificationService } from '../../services/notification.service';
 
-import { ResponseModel } from '../../shared/types';
+// import { ResponseModel } from '../../shared/types';
 
 import UserModel from '../../models/user-model';
 
@@ -50,7 +50,8 @@ export class UsersManagementComponent {
   mainActionButtonName: string = 'add-client';
   mainActionButtonLabel: string = 'Add Client';
 
-  users: UserModel[] = [];
+  users = signal<UserModel[]>([]);
+  usersLength = signal<number>(0);
   ButtonTypes: typeof ButtonType = ButtonType;
 
   showContextMenu: boolean = false;
@@ -105,7 +106,6 @@ export class UsersManagementComponent {
   }
 
   onViewUser() {
-    console.log('View user:', this.selectedUser);
     this.hideContextMenu();
   }
 
@@ -115,7 +115,7 @@ export class UsersManagementComponent {
   }
 
   onDeleteUser() {
-    console.log('Delete user:', this.selectedUser);
+    this.deleteClient(this.selectedUser!.id);
     this.hideContextMenu();
   }
 
@@ -127,26 +127,49 @@ export class UsersManagementComponent {
   ngOnInit() {
     this.fetchAllClients();
   }
+
+  onClientCreated() {
+    this.fetchAllClients();
+    this.closeAddUserModal();
+  }
   
   fetchAllClients() {
     this.isLoading.set(true);
 
-    this.usersService.fetchAllClients().subscribe((res: ResponseModel<UserModel[]>) => {
-      const { data } = res;
 
-      const hasData = data && data.length > 0;
-
-      if (hasData) {
-        this.users = data;
-        this.headingSublabel = this.users.length.toString();
+    this.usersService.fetchAllClients().subscribe({
+      next: (res) => {
+        const { data } = res;
+        this.users.set(data);
+        this.usersLength.set(data.length);
+        this.headingSublabel = this.usersLength().toString();
+      },
+      error: (error) => {
+        this.notificationService.showError(error.message);
+      },
+      complete: () => {
+        this.isLoading.set(false);
       }
+    });
+  }
 
-      this.isLoading.set(false);
-    }, (error: Error) => {
-      console.error('Error fetching all clients:', error);
+  deleteClient(clientId: string) {
+    this.isLoading.set(true);
 
-      this.isLoading.set(false);
-      this.notificationService.showError(error.message);
+    this.usersService.deleteClient(clientId).subscribe({
+      next: (res) => {},
+      error: (error) => {
+        this.notificationService.showError(error.message);
+      },
+      complete: () => {
+        this.isLoading.set(false);
+        this.notificationService.showSuccess('Client deleted successfully');
+
+        this.users.update((users) => users.filter((user) => user.id !== clientId));
+        console.log(this.users().length);
+        
+        this.usersLength.set(this.users().length);
+      }
     });
   }
 

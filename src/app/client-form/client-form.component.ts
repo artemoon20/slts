@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ClientFormHeaderComponent } from '../client-form-header/client-form-header.component';
 import { ClientFormFooterComponent } from '../client-form-footer/client-form-footer.component';
 import { ClientFormBodyComponent } from '../client-form-body/client-form-body.component';
-import { USER_ROLES } from '../../shared/constants/app-constants';
 import UserModel from '../../models/user-model';
 import { ClientFormModel } from '../../models/client-form.model';
 
@@ -109,11 +108,13 @@ export class ClientFormComponent implements OnChanges {
     // For new clients, validate required fields
     if (!this.userData && this.clientForm.invalid) {
       this.markFormGroupTouched();
+
       return;
     }
 
     // Get only the changed values
     const changedValues = this.getChangedValues();
+
     this.onClientFormSubmit.emit(changedValues);
   }
 
@@ -166,6 +167,7 @@ export class ClientFormComponent implements OnChanges {
     }
     
     const userData = this.userData();
+
     return {
       firstName: userData?.firstName || '',
       lastName: userData?.lastName || '',

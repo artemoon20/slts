@@ -19,6 +19,7 @@ export class AddClientComponent {
   isLoading: boolean = false;
 
   @Output() closeModalEmitter = new EventEmitter<void>();
+  @Output() onClientCreated = new EventEmitter<void>();
 
   constructor(
     private clientsService: ClientsService,
@@ -32,40 +33,40 @@ export class AddClientComponent {
   async createClient(formData: Partial<ClientFormModel>) {
     this.isLoading = true;
 
-    try {
-      const clientData: CreateClientRequest = {
-        first_name: formData.firstName!,
-        last_name: formData.lastName || null,
-        birth_date: formData.birthDate ? new Date(formData.birthDate) : null,
-        email: formData.email!,
-        role: formData.role!,
-        phone: formData.phone || null,
-        gender: formData.gender || null,
-        country: formData.country || null,
-        city: formData.city || null,
-        zip: formData.zip || null,
-        address: formData.address || null,
-        state: formData.state || null,
-        card_number: formData.cardNumber || null,
-        expiry_date: formData.expiryDate || null,
-        currency: formData.currency || null,
-        company_name: formData.companyName || null,
-        department: formData.department || null,
-        position: formData.position || null,
-      };
+    const clientData: CreateClientRequest = {
+      first_name: formData.firstName!,
+      last_name: formData.lastName || null,
+      birth_date: formData.birthDate ? new Date(formData.birthDate) : null,
+      email: formData.email!,
+      role: formData.role!,
+      phone: formData.phone || null,
+      gender: formData.gender || null,
+      country: formData.country || null,
+      city: formData.city || null,
+      zip: formData.zip || null,
+      address: formData.address || null,
+      state: formData.state || null,
+      card_number: formData.cardNumber || null,
+      expiry_date: formData.expiryDate || null,
+      currency: formData.currency || null,
+      company_name: formData.companyName || null,
+      department: formData.department || null,
+      position: formData.position || null,
+    };
 
-      await this.clientsService.createClient(clientData).toPromise();
-      
-      this.notificationService.showSuccess('Client created successfully');
-
-      this.closeModal();
-    } catch (error) {
-      console.error('Error creating client:', error);
-      
-      this.notificationService.showError('Failed to create client. Please try again.');
-    } finally {
-      this.isLoading = false;
-    }
+    this.clientsService.createClient(clientData).subscribe({
+      next: (res) => {},
+      error: (error) => {
+        this.isLoading = false;
+        this.notificationService.showError('Failed to fetch clients. Please try again.');
+      },
+      complete: () => {
+        this.isLoading = false;
+        this.notificationService.showSuccess('Client created successfully');
+        this.onClientCreated.emit();
+        this.closeModal();
+      }
+    });
   }
 
 }
