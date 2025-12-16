@@ -16,8 +16,7 @@ describe('SelectComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SelectComponent, ReactiveFormsModule]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SelectComponent);
     component = fixture.componentInstance;
@@ -33,33 +32,33 @@ describe('SelectComponent', () => {
     component.placeholder = 'Choose option';
     component.selectedValue = null;
     fixture.detectChanges();
-    
+
     expect(component.getSelectedLabel()).toBe('Choose option');
   });
 
   it('should display selected option label', () => {
     component.selectedValue = 'option1';
     fixture.detectChanges();
-    
+
     expect(component.getSelectedLabel()).toBe('Option 1');
   });
 
   it('should toggle dropdown on click', () => {
     expect(component.isOpen).toBeFalse();
-    
+
     component.toggleDropdown();
     expect(component.isOpen).toBeTrue();
-    
+
     component.toggleDropdown();
     expect(component.isOpen).toBeFalse();
   });
 
   it('should select option and close dropdown', () => {
     spyOn(component.selectionChange, 'emit');
-    
+
     component.toggleDropdown();
     component.selectOption(mockOptions[0]);
-    
+
     expect(component.selectedValue).toBe('option1');
     expect(component.isOpen).toBeFalse();
     expect(component.selectionChange.emit).toHaveBeenCalledWith('option1');
@@ -69,19 +68,19 @@ describe('SelectComponent', () => {
     const disabledOption = mockOptions[2];
     component.toggleDropdown();
     component.selectOption(disabledOption);
-    
+
     expect(component.selectedValue).toBeNull();
   });
 
   it('should implement ControlValueAccessor', () => {
     const mockOnChange = jasmine.createSpy('onChange');
     const mockOnTouched = jasmine.createSpy('onTouched');
-    
+
     component.registerOnChange(mockOnChange);
     component.registerOnTouched(mockOnTouched);
-    
+
     component.selectOption(mockOptions[0]);
-    
+
     expect(mockOnChange).toHaveBeenCalledWith('option1');
     expect(mockOnTouched).toHaveBeenCalled();
   });

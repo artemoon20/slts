@@ -9,8 +9,7 @@ describe('ManagementSideContentActionsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ManagementSideContentActionsComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ManagementSideContentActionsComponent);
     component = fixture.componentInstance;

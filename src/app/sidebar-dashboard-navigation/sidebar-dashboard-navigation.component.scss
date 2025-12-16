@@ -1,91 +1,134 @@
 @import '../../shared/styles/vars.scss';
 
 :host {
-    width: 15%;
+  width: 15%;
 }
 
 .sidebar-dashboard-navigation {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 40px 30px 30px 0px;
+  background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+
+  &__header {
     display: flex;
     flex-direction: column;
+    gap: 4px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
 
-    height: 100%;
+  &__header-title {
+    text-decoration: none;
+    color: $accent;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    transition: color 0.3s ease;
 
-    padding: 25px 25px 25px 0px;
-    
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  &__header-version {
+    font-size: 11px;
+    font-weight: 500;
+    color: $accentLight;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+  }
+
+  &__menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__menu-top-list {
+    margin-top: 30px;
+  }
+
+  &__menu-bottom-list {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding-top: 20px;
+  }
+
+  &__menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 0;
+      background: $primary;
+      border-radius: 0 3px 3px 0;
+      transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    &__header-title {
-        font-size: 24px;
+    &:hover {
+      background: rgba(205, 80, 60, 0.08);
+
+      .sidebar-dashboard-navigation__menu-item-icon {
+        color: $primary;
+        transform: scale(1.1);
+      }
+
+      .sidebar-dashboard-navigation__menu-item-title {
+        color: $accent;
+      }
+    }
+
+    &--active {
+      background: rgba(205, 80, 60, 0.12);
+
+      &::before {
+        height: 60%;
+      }
+
+      .sidebar-dashboard-navigation__menu-item-icon {
+        color: $primary;
+      }
+
+      .sidebar-dashboard-navigation__menu-item-title {
+        color: $accent;
         font-weight: 600;
+      }
     }
+  }
 
-    &__header-version {
-        font-size: 14px;
-        font-weight: 400;
-        color: #C7C7C7;
-    }
+  &__menu-item-icon {
+    min-width: 20px;
+    margin-right: 12px;
+    font-size: 18px;
+    color: $accentLight;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-    &__menu {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-
-        flex: 1;
-    }
-
-    &__menu-list {
-        list-style: none;
-
-        margin-top: 40px;
-        padding: 0;
-    }
-
-    &__menu-item-title {
-        transition: all 0.3s ease;
-    }
-
-    &__menu-item {
-        padding: 10px 0px 10px 15px;
-
-        margin-bottom: 10px;
-
-        transition: all 0.3s ease;
-
-        &:hover {
-            background-color: $lightGray;
-            border-radius: 10px;
-
-            cursor: pointer;
-
-            transition: all 0.3s ease;
-
-            .sidebar-dashboard-navigation__menu-item-icon {
-                color: $primary;
-
-                transition: all 0.3s ease;
-            }
-        }
-        
-        &--active {
-            background-color: $lightGray;
-            border-radius: 10px;
-
-            .sidebar-dashboard-navigation__menu-item-icon {
-                color: $primary;
-            }
-        }
-    }
-
-    &__menu-item-icon {
-        margin-right: 10px;
-    }
-
-    .sidebar-dashboard-navigation__menu-item-icon {
-        transition: all 0.3s ease;
-    }
+  &__menu-item-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: $accentLight;
+    letter-spacing: 0.2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }

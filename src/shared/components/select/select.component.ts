@@ -28,7 +28,7 @@ export class SelectComponent implements ControlValueAccessor {
   @Input() error: boolean = false;
   @Input() required: boolean = false;
   @Input() label: string = '';
-  
+
   @Output() selectionChange = new EventEmitter<any>();
 
   selectedValue: any = null;
@@ -82,7 +82,7 @@ export class SelectComponent implements ControlValueAccessor {
   onDocumentClick(event: Event): void {
     const target = event.target as HTMLElement;
     const selectElement = target.closest('.select-container');
-    
+
     if (!selectElement && this.isOpen) {
       this.closeDropdown();
     }

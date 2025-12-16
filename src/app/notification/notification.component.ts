@@ -18,7 +18,7 @@ export class NotificationComponent implements OnInit {
     this.notificationService.notification$.subscribe((msg: NotificationMessage) => {
       this.message = msg.message;
 
-      setTimeout(() => this.message = null, 3000);
+      setTimeout(() => (this.message = null), 3000);
     });
   }
 }

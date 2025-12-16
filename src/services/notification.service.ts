@@ -7,11 +7,11 @@ export interface NotificationMessage {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class NotificationService {
   private notificationSubject = new Subject<NotificationMessage>();
-  
+
   notification$ = this.notificationSubject.asObservable();
 
   show(message: string) {

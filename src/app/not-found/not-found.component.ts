@@ -13,4 +13,4 @@ export class NotFoundComponent {
   title = 'Page Not Found';
   subtitle = 'Go Back Home';
   link = '/sign-in';
-} 
+}

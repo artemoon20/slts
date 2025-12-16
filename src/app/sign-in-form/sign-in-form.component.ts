@@ -29,7 +29,7 @@ export class SignInFormComponent {
   constructor(private fb: FormBuilder) {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 
@@ -42,10 +42,16 @@ export class SignInFormComponent {
       return;
     }
 
-    this.authService.signIn(email, password).subscribe({
+    const formPayload = {
+      email,
+      password
+    };
+
+    this.authService.signIn(formPayload).subscribe({
       next: (res: SignInResponse) => {
         if (res.accessToken) {
           this.authService.setToken(res.accessToken);
+
           this.router.navigate(['/dashboard']);
         }
       },

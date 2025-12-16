@@ -1,4 +1,4 @@
-import { Component, inject, HostListener, signal, Signal } from '@angular/core';
+import { Component, inject, HostListener, signal, Signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit, faEllipsisVertical, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -21,11 +21,19 @@ import UserModel from '../../models/user-model';
 
 @Component({
   selector: 'app-users-management',
-  imports: [ManagementSideContentActionsComponent, CommonModule, TableComponent, ColumnDirective, FontAwesomeModule, AddClientComponent, EditClientComponent],
+  imports: [
+    ManagementSideContentActionsComponent,
+    CommonModule,
+    TableComponent,
+    ColumnDirective,
+    FontAwesomeModule,
+    AddClientComponent,
+    EditClientComponent
+  ],
   templateUrl: './users-management.component.html',
   styleUrl: './users-management.component.scss'
 })
-export class UsersManagementComponent {
+export class UsersManagementComponent implements OnInit {
   constructor() {
     library.add(faEdit, faEllipsisVertical, faEye, faTrash);
   }
@@ -55,7 +63,7 @@ export class UsersManagementComponent {
   ButtonTypes: typeof ButtonType = ButtonType;
 
   showContextMenu: boolean = false;
-  contextMenuPosition: { x: number, y: number } = { x: 0, y: 0 };
+  contextMenuPosition: { x: number; y: number } = { x: 0, y: 0 };
   selectedUser: UserModel | null = null;
 
   usersService = inject(ClientsService);
@@ -68,7 +76,7 @@ export class UsersManagementComponent {
   openAddUserModal() {
     this.showAddClientModal = true;
   }
-  
+
   closeAddUserModal() {
     this.showAddClientModal = false;
   }
@@ -85,23 +93,23 @@ export class UsersManagementComponent {
   onMoreActionsClick(event: MouseEvent, user: UserModel) {
     event.stopPropagation();
     this.selectedUser = user;
-    
+
     const target = document.querySelector('.users-management__actions-icon') as HTMLElement;
     const rect = target.getBoundingClientRect();
-    
-    this.contextMenuPosition = { 
+
+    this.contextMenuPosition = {
       x: rect.left - 120,
-      y: rect.bottom + 5 
+      y: rect.bottom + 5
     };
-    
+
     if (this.contextMenuPosition.x < 10) {
       this.contextMenuPosition.x = rect.right + 5;
     }
-    
+
     if (this.contextMenuPosition.y + 100 > window.innerHeight) {
       this.contextMenuPosition.y = rect.top - 105;
     }
-    
+
     this.showContextMenu = true;
   }
 
@@ -132,19 +140,18 @@ export class UsersManagementComponent {
     this.fetchAllClients();
     this.closeAddUserModal();
   }
-  
+
   fetchAllClients() {
     this.isLoading.set(true);
 
-
     this.usersService.fetchAllClients().subscribe({
-      next: (res) => {
+      next: res => {
         const { data } = res;
         this.users.set(data);
         this.usersLength.set(data.length);
         this.headingSublabel = this.usersLength().toString();
       },
-      error: (error) => {
+      error: error => {
         this.notificationService.showError(error.message);
       },
       complete: () => {
@@ -157,17 +164,17 @@ export class UsersManagementComponent {
     this.isLoading.set(true);
 
     this.usersService.deleteClient(clientId).subscribe({
-      next: (res) => {},
-      error: (error) => {
+      next: res => {},
+      error: error => {
         this.notificationService.showError(error.message);
       },
       complete: () => {
         this.isLoading.set(false);
         this.notificationService.showSuccess('Client deleted successfully');
 
-        this.users.update((users) => users.filter((user) => user.id !== clientId));
+        this.users.update(users => users.filter(user => user.id !== clientId));
         console.log(this.users().length);
-        
+
         this.usersLength.set(this.users().length);
       }
     });

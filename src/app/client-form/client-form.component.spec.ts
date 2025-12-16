@@ -9,8 +9,7 @@ describe('AddClientFormComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AddClientFormComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AddClientFormComponent);
     component = fixture.componentInstance;

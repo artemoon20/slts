@@ -9,6 +9,4 @@ import { SidebarDashboardNavigationComponent } from '../sidebar-dashboard-naviga
   templateUrl: './dashboard-layout.component.html',
   styleUrl: './dashboard-layout.component.scss'
 })
-export class DashboardLayoutComponent {
-
-}
+export class DashboardLayoutComponent {}

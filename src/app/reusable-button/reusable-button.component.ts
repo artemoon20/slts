@@ -35,11 +35,16 @@ export class ReusableButtonComponent implements OnInit {
   }
 
   get buttonTypeClass() {
-    if (!this.buttonType || (this.buttonType !== ButtonType.PRIMARY && this.buttonType !== ButtonType.SECONDARY)) {
+    if (
+      !this.buttonType ||
+      (this.buttonType !== ButtonType.PRIMARY && this.buttonType !== ButtonType.SECONDARY)
+    ) {
       return '';
     }
 
-    return this.buttonType === ButtonType.PRIMARY ? 'reusable-button--primary' : 'reusable-button--secondary';
+    return this.buttonType === ButtonType.PRIMARY
+      ? 'reusable-button--primary'
+      : 'reusable-button--secondary';
   }
 
   onButtonClick() {

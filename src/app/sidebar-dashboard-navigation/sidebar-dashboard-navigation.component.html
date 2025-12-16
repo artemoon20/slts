@@ -1,37 +1,41 @@
 <div class="sidebar-dashboard-navigation">
-    <div class="sidebar-dashboard-navigation__header">
-        <div class="sidebar-dashboard-navigation__header-title">Some App</div>
-        <span class="sidebar-dashboard-navigation__header-version">
-           v1.0
-        </span>
+  <div class="sidebar-dashboard-navigation__header">
+    <a [routerLink]="'/dashboard'" class="sidebar-dashboard-navigation__header-title">Some App</a>
+    <span class="sidebar-dashboard-navigation__header-version"> v1.0 </span>
+  </div>
+  <div class="sidebar-dashboard-navigation__menu">
+    <div class="sidebar-dashboard-navigation__menu-top-list">
+      <ul class="sidebar-dashboard-navigation__menu-list">
+        <li
+          routerLinkActive="sidebar-dashboard-navigation__menu-item--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLink]="item.path"
+          class="sidebar-dashboard-navigation__menu-item"
+          *ngFor="let item of navigationItems"
+        >
+          <fa-icon
+            [icon]="item.icon"
+            class="sidebar-dashboard-navigation__menu-item-icon"
+          ></fa-icon>
+          <span class="sidebar-dashboard-navigation__menu-item-title">{{ item.title }}</span>
+        </li>
+      </ul>
     </div>
-    <div class="sidebar-dashboard-navigation__menu">
-        <div class="sidebar-dashboard-navigation__menu-top-list">
-            <ul class="sidebar-dashboard-navigation__menu-list">
-                <li 
-                    routerLinkActive="sidebar-dashboard-navigation__menu-item--active" 
-                    [routerLinkActiveOptions]="{ exact: true }" 
-                    [routerLink]="item.path" 
-                    class="sidebar-dashboard-navigation__menu-item" 
-                    *ngFor="let item of navigationItems"
-                >
-                    <fa-icon [icon]="item.icon" class="sidebar-dashboard-navigation__menu-item-icon"></fa-icon>
-                    <span class="sidebar-dashboard-navigation__menu-item-title">{{ item.title }}</span>
-                </li>
-            </ul>
-        </div>
-        <div class="sidebar-dashboard-navigation__menu-bottom-list">
-            <ul class="sidebar-dashboard-navigation__menu-list">
-                <li 
-                    class="sidebar-dashboard-navigation__menu-item"
-                    *ngFor="let item of bottomNavigationItems"
-                    [routerLink]="item.path ? item.path : null"
-                    (click)="item.onClick?.()"
-                >
-                    <fa-icon [icon]="item.icon" class="sidebar-dashboard-navigation__menu-item-icon"></fa-icon>
-                    <span class="sidebar-dashboard-navigation__menu-item-title">{{ item.title }}</span>
-                </li>
-            </ul>
-        </div>
+    <div class="sidebar-dashboard-navigation__menu-bottom-list">
+      <ul class="sidebar-dashboard-navigation__menu-list">
+        <li
+          class="sidebar-dashboard-navigation__menu-item"
+          *ngFor="let item of bottomNavigationItems"
+          [routerLink]="item.path ? item.path : null"
+          (click)="item.onClick?.()"
+        >
+          <fa-icon
+            [icon]="item.icon"
+            class="sidebar-dashboard-navigation__menu-item-icon"
+          ></fa-icon>
+          <span class="sidebar-dashboard-navigation__menu-item-title">{{ item.title }}</span>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>

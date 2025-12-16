@@ -4,24 +4,40 @@ import { Observable } from 'rxjs';
 import { SignUpResponse, SignInResponse } from '../models/auth-responses';
 import { Router } from '@angular/router';
 
+type signUpPayload = {
+  email: string;
+  password: string;
+  firstName: string;
+  organizationName: string;
+};
+
+type signInPayload = {
+  email: string;
+  password: string;
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3001/api';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
-  signUp(email: string, password: string, role: string, status: string, first_name: string): Observable<SignUpResponse> {
-    return this.http.post<SignUpResponse>(`${this.apiUrl}/auth/sign-up`, { email, password, role, status, first_name });
+  signUp(formPayload: signUpPayload): Observable<SignUpResponse> {
+    return this.http.post<SignUpResponse>(`${this.apiUrl}/auth/sign-up`, formPayload);
   }
 
-  signIn(email: string, password: string): Observable<SignInResponse> {
-    return this.http.post<SignInResponse>(`${this.apiUrl}/auth/sign-in`, { email, password });
+  signIn(formPayload: signInPayload): Observable<SignInResponse> {
+    return this.http.post<SignInResponse>(`${this.apiUrl}/auth/sign-in`, formPayload);
   }
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem('jwt');
+
     return !!token;
   }
 

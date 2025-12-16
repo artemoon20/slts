@@ -17,7 +17,7 @@ export class ClientFormFooterComponent {
   @Input() confirmButtonText!: string;
   @Input() isLoading: boolean = false;
   @Input() type!: string;
-  
+
   @Output() closeModalEmitter = new EventEmitter<void>();
   @Output() submitFormEmitter = new EventEmitter<void>();
 

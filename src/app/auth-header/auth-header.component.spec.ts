@@ -9,8 +9,7 @@ describe('AuthHeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AuthHeaderComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AuthHeaderComponent);
     component = fixture.componentInstance;

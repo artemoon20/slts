@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges, Signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnChanges,
+  SimpleChanges,
+  Signal
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -10,7 +18,13 @@ import { ClientFormModel } from '../../models/client-form.model';
 
 @Component({
   selector: 'app-client-form',
-  imports: [CommonModule, ClientFormHeaderComponent, ClientFormFooterComponent, ClientFormBodyComponent, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ClientFormHeaderComponent,
+    ClientFormFooterComponent,
+    ClientFormBodyComponent,
+    ReactiveFormsModule
+  ],
   templateUrl: './client-form.component.html',
   styleUrl: './client-form.component.scss'
 })
@@ -29,28 +43,18 @@ export class ClientFormComponent implements OnChanges {
 
   constructor(private fb: FormBuilder) {
     this.clientForm = this.fb.group({
-      // client info
-      firstName: ['', Validators.required],
-      lastName: [''],
-      birthDate: [''],
-      email: ['', [Validators.required, Validators.email]],
-      role: ['', Validators.required],
-      phone: [''],
+      firstName: ['', [Validators.required, Validators.maxLength(50)]],
+      lastName: ['', Validators.maxLength(50)],
+      phone: ['', Validators.maxLength(30)],
+      email: ['', [Validators.email, Validators.maxLength(120)]],
+      birthday: [''],
+      address: ['', Validators.maxLength(250)],
+      status: ['active', Validators.required],
       gender: [''],
-      // address info
-      country: [''],
-      city: [''],
-      zip: [''],
-      address: [''],
-      state: [''],
-      // bank info
-      cardNumber: [''],
-      expiryDate: [''],
-      currency: [''],
-      // company info
-      companyName: [''],
-      department: [''],
-      position: [''],
+      source: [''],
+      priority: ['medium', Validators.required],
+      notes: [''],
+      managerId: ['']
     });
   }
 
@@ -65,38 +69,27 @@ export class ClientFormComponent implements OnChanges {
   }
 
   populateForm() {
-    if (!this.userData) return;
-    
+    if (!this.userData) {
+      return;
+    }
+
     const userData = this.userData();
 
     const formData = {
-      // Basic client info
       firstName: userData?.firstName || '',
       lastName: userData?.lastName || '',
-      email: userData?.email || '',
       phone: userData?.phone || '',
-      gender: userData?.gender || '',
-      role: userData!.role,
-      birthDate: this.formatDate(userData?.birthDate || null),
-      
-      // Address info
-      country: userData?.addressInfo?.country || '',
-      city: userData?.addressInfo?.city || '',
-      zip: userData?.addressInfo?.zip || '',
+      email: userData?.email || '',
+      birthday: this.formatDate(userData?.birthDate || null),
       address: userData?.addressInfo?.address || '',
-      state: userData?.addressInfo?.state || '',
-      
-      // Bank info
-      cardNumber: userData?.bankInfo?.cardNumber || '',
-      expiryDate: userData?.bankInfo?.expiryDate || '',
-      currency: userData?.bankInfo?.currency || '',
-      
-      // Company info
-      companyName: userData?.companyInfo?.companyName || '',
-      department: userData?.companyInfo?.department || '',
-      position: userData?.companyInfo?.position || '',
+      status: userData?.status || 'active',
+      gender: userData?.gender || '',
+      source: '', // Will be populated from backend
+      priority: 'medium', // Will be populated from backend
+      notes: '',
+      managerId: ''
     };
-    
+
     this.clientForm.patchValue(formData);
   }
 
@@ -128,16 +121,16 @@ export class ClientFormComponent implements OnChanges {
   private getChangedValues(): Partial<ClientFormModel> {
     const currentValues = this.clientForm.value;
     const originalValues = this.getOriginalFormValues();
-    
+
     const changedValues: Partial<ClientFormModel> = {};
-    
+
     // Compare each field and only include changed ones
     Object.keys(currentValues).forEach(key => {
       if (currentValues[key] !== originalValues[key]) {
         changedValues[key as keyof ClientFormModel] = currentValues[key];
       }
     });
-    
+
     return changedValues;
   }
 
@@ -147,46 +140,34 @@ export class ClientFormComponent implements OnChanges {
       return {
         firstName: '',
         lastName: '',
-        birthDate: '',
-        email: '',
-        role: '',
         phone: '',
-        gender: '',
-        country: '',
-        city: '',
-        zip: '',
+        email: '',
+        birthday: '',
         address: '',
-        state: '',
-        cardNumber: '',
-        expiryDate: '',
-        currency: '',
-        companyName: '',
-        department: '',
-        position: '',
+        status: 'active',
+        gender: '',
+        source: '',
+        priority: 'medium',
+        notes: '',
+        managerId: ''
       };
     }
-    
+
     const userData = this.userData();
 
     return {
       firstName: userData?.firstName || '',
       lastName: userData?.lastName || '',
-      email: userData?.email || '',
       phone: userData?.phone || '',
-      gender: userData?.gender || '',
-      role: userData?.role,
-      birthDate: this.formatDate(userData?.birthDate || null),
-      country: userData?.addressInfo?.country || '',
-      city: userData?.addressInfo?.city || '',
-      zip: userData?.addressInfo?.zip || '',
+      email: userData?.email || '',
+      birthday: this.formatDate(userData?.birthDate || null),
       address: userData?.addressInfo?.address || '',
-      state: userData?.addressInfo?.state || '',
-      cardNumber: userData?.bankInfo?.cardNumber || '',
-      expiryDate: userData?.bankInfo?.expiryDate || '',
-      currency: userData?.bankInfo?.currency || '',
-      companyName: userData?.companyInfo?.companyName || '',
-      department: userData?.companyInfo?.department || '',
-      position: userData?.companyInfo?.position || '',
+      status: userData?.status || 'active',
+      gender: userData?.gender || '',
+      source: '',
+      priority: 'medium',
+      notes: '',
+      managerId: ''
     };
   }
 }
