@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ClientFormHeaderComponent } from '../client-form-header/client-form-header.component';
 import { ClientFormFooterComponent } from '../client-form-footer/client-form-footer.component';
 import { ClientFormBodyComponent } from '../client-form-body/client-form-body.component';
-import UserModel from '../../models/user-model';
+import ClientModel from '../../models/user-model';
 import { ClientFormModel } from '../../models/client-form.model';
 
 @Component({
@@ -34,7 +34,7 @@ export class ClientFormComponent implements OnChanges {
   @Input() cancelButtonText!: string;
   @Input() confirmButtonText!: string;
   @Input() isLoading: boolean = false;
-  @Input() userData: Signal<UserModel | undefined> | undefined = undefined;
+  @Input() userData: Signal<ClientModel | undefined> | undefined = undefined;
 
   @Output() closeModalEmitter = new EventEmitter<void>();
   @Output() onClientFormSubmit = new EventEmitter<Partial<ClientFormModel>>();
@@ -80,8 +80,8 @@ export class ClientFormComponent implements OnChanges {
       lastName: userData?.lastName || '',
       phone: userData?.phone || '',
       email: userData?.email || '',
-      birthday: this.formatDate(userData?.birthDate || null),
-      address: userData?.addressInfo?.address || '',
+      birthday: this.formatDate(userData?.birthday || null),
+      address: userData?.address || '',
       status: userData?.status || 'active',
       gender: userData?.gender || '',
       source: '', // Will be populated from backend
@@ -98,7 +98,6 @@ export class ClientFormComponent implements OnChanges {
   }
 
   onSubmit() {
-    // For new clients, validate required fields
     if (!this.userData && this.clientForm.invalid) {
       this.markFormGroupTouched();
 
@@ -124,7 +123,6 @@ export class ClientFormComponent implements OnChanges {
 
     const changedValues: Partial<ClientFormModel> = {};
 
-    // Compare each field and only include changed ones
     Object.keys(currentValues).forEach(key => {
       if (currentValues[key] !== originalValues[key]) {
         changedValues[key as keyof ClientFormModel] = currentValues[key];
@@ -160,8 +158,8 @@ export class ClientFormComponent implements OnChanges {
       lastName: userData?.lastName || '',
       phone: userData?.phone || '',
       email: userData?.email || '',
-      birthday: this.formatDate(userData?.birthDate || null),
-      address: userData?.addressInfo?.address || '',
+      birthday: this.formatDate(userData?.birthday || null),
+      address: userData?.address || '',
       status: userData?.status || 'active',
       gender: userData?.gender || '',
       source: '',

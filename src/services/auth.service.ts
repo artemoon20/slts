@@ -32,7 +32,9 @@ export class AuthService {
   }
 
   signIn(formPayload: signInPayload): Observable<SignInResponse> {
-    return this.http.post<SignInResponse>(`${this.apiUrl}/auth/sign-in`, formPayload);
+    return this.http.post<SignInResponse>(`${this.apiUrl}/auth/sign-in`, formPayload, {
+      withCredentials: true
+    });
   }
 
   isAuthenticated(): boolean {
@@ -47,6 +49,18 @@ export class AuthService {
 
   setToken(token: string): void {
     localStorage.setItem('jwt', token);
+  }
+
+  saveToken(token: string): void {
+    this.setToken(token);
+  }
+
+  refreshToken(): Observable<{ accessToken: string }> {
+    return this.http.post<{ accessToken: string }>(
+      `${this.apiUrl}/auth/refresh`,
+      {},
+      { withCredentials: true }
+    );
   }
 
   logout(): void {

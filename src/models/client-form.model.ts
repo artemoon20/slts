@@ -20,18 +20,3 @@ export interface ClientFormModel {
   notes: string;
   managerId: string;
 }
-
-export interface CreateClientRequest {
-  first_name: string;
-  last_name: string | null;
-  phone: string | null;
-  email: string | null;
-  birthday: string | null;
-  address: string | null;
-  status: UserStatusType;
-  gender: UserGenderType | null;
-  source: ClientSourceType | null;
-  priority: ClientPriorityType;
-  notes: string | null;
-  manager_id: string | null;
-}

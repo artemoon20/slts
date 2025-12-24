@@ -14,7 +14,7 @@ import { ClientsService } from '../../services/clients.service';
 import { ClientFormComponent } from '../client-form/client-form.component';
 import { ResponseModel } from '../../shared/types';
 import { LoaderComponent } from '../../shared/components/loader';
-import UserModel from '../../models/user-model';
+import ClientModel from '../../models/user-model';
 import { NotificationService } from '../../services/notification.service';
 import { ClientFormModel } from '../../models/client-form.model';
 
@@ -33,7 +33,7 @@ export class EditClientComponent implements OnInit {
   clientsService = inject(ClientsService);
   notificationService = inject(NotificationService);
 
-  userData = signal<ResponseModel<UserModel> | undefined>(undefined);
+  userData = signal<ResponseModel<ClientModel> | undefined>(undefined);
   isLoading = signal(false);
 
   user = computed(() => this.userData()?.data);

@@ -1,0 +1,8 @@
+<app-manager-form
+  [formHeaderTitle]="formHeaderTitle"
+  [cancelButtonText]="'Cancel'"
+  [confirmButtonText]="'Add Manager'"
+  [isLoading]="isLoading"
+  (closeModalEmitter)="closeModal()"
+  (onManagerFormSubmit)="createManager($event)"
+/>

@@ -1,6 +1,6 @@
 @import '../../shared/styles/vars.scss';
 
-.managers {
+.clients-management {
   &__header {
     margin-bottom: 30px;
 
@@ -19,13 +19,13 @@
     font-weight: 400;
   }
 
-  &__manager-name-wrapper {
+  &__client-name-wrapper {
     display: flex;
     align-items: center;
     gap: 16px;
   }
 
-  &__manager-avatar {
+  &__client-avatar {
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -39,13 +39,13 @@
     }
   }
 
-  &__manager-name-info {
+  &__client-name-info {
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
 
-  &__manager-name {
+  &__client-name {
     font-size: 15px;
     font-weight: 600;
     color: $accent;
@@ -53,16 +53,26 @@
     line-height: 1.2;
   }
 
-  &__manager-email {
+  &__client-email {
     font-size: 13px;
     color: $accentLight;
     line-height: 1.2;
   }
 
-  &__email {
+  &__phone,
+  &__gender,
+  &__manager {
     font-size: 14px;
     color: $accentLight;
     font-weight: 500;
+  }
+
+  &__manager {
+    font-style: italic;
+
+    &:not(:empty) {
+      font-style: normal;
+    }
   }
 
   &__status {
@@ -101,7 +111,7 @@
     &:hover {
       background: rgba(205, 80, 60, 0.1);
 
-      .managers__actions-icon {
+      .clients-management__actions-icon {
         color: $primary;
       }
     }
@@ -187,8 +197,8 @@
   background: transparent;
 }
 
-.managers__manager-modal-wrapper,
-.managers__edit-manager-modal-wrapper {
+.clients-management__client-modal-wrapper,
+.clients-management__edit-client-modal-wrapper {
   position: fixed;
   top: 0;
   left: 0;
@@ -204,28 +214,28 @@
 
 // Responsive Design
 @media (max-width: $screen-lg-width) {
-  .managers {
-    &__manager-name-wrapper {
+  .clients-management {
+    &__client-name-wrapper {
       gap: 12px;
     }
 
-    &__manager-avatar {
+    &__client-avatar {
       width: 40px;
       height: 40px;
     }
 
-    &__manager-name {
+    &__client-name {
       font-size: 14px;
     }
 
-    &__manager-email {
+    &__client-email {
       font-size: 12px;
     }
   }
 }
 
 @media (max-width: $screen-md-width) {
-  .managers {
+  .clients-management {
     &__header h1 {
       font-size: 26px;
     }
@@ -237,16 +247,16 @@
 }
 
 @media (max-width: $screen-xs-width) {
-  .managers {
+  .clients-management {
     &__header h1 {
       font-size: 22px;
     }
 
-    &__manager-name-wrapper {
+    &__client-name-wrapper {
       gap: 10px;
     }
 
-    &__manager-avatar {
+    &__client-avatar {
       width: 36px;
       height: 36px;
     }
@@ -256,5 +266,3 @@
     min-width: 160px;
   }
 }
-
-

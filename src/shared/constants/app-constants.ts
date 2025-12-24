@@ -12,9 +12,17 @@ export enum USER_STATUSES {
 
 export enum USER_ROLES {
   ADMIN = 'admin',
-  FREE_CLIENT = 'free_client',
-  PREMIUM_CLIENT = 'premium_client'
+  ORGANIZATION_OWNER = 'organization_owner',
+  ORGANIZATION_MANAGER = 'organization_manager',
+  ORGANIZATION_CLIENT = 'organization_client'
 }
+
+export const ROLES_IDS = {
+  ADMIN: 1,
+  ORGANIZATION_OWNER: 2,
+  ORGANIZATION_MANAGER: 3,
+  ORGANIZATION_CLIENT: 4
+};
 
 export enum USER_GENDERS {
   MALE = 'male',
@@ -40,12 +48,6 @@ export const genderOptions: SelectOption[] = [
   { value: USER_GENDERS.FEMALE, label: 'Female' }
 ];
 
-export const roleOptions: SelectOption[] = [
-  { value: USER_ROLES.ADMIN, label: 'Admin' },
-  { value: USER_ROLES.FREE_CLIENT, label: 'Free Client' },
-  { value: USER_ROLES.PREMIUM_CLIENT, label: 'Premium Client' }
-];
-
 export const statusOptions: SelectOption[] = [
   { value: USER_STATUSES.ACTIVE, label: 'Active' },
   { value: USER_STATUSES.INACTIVE, label: 'Inactive' }
@@ -66,8 +68,6 @@ export const priorityOptions: SelectOption[] = [
 ];
 
 export type UserStatusType = USER_STATUSES.ACTIVE | USER_STATUSES.INACTIVE;
-export type UserRoleType = USER_ROLES.ADMIN | USER_ROLES.FREE_CLIENT | USER_ROLES.PREMIUM_CLIENT;
-export type ClientRoleType = Exclude<UserRoleType, USER_ROLES.ADMIN>;
 export type UserGenderType = USER_GENDERS.MALE | USER_GENDERS.FEMALE;
 export type ClientSourceType =
   | CLIENT_SOURCE.SITE

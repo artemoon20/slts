@@ -1,4 +1,4 @@
-import { Component, inject, HostListener, signal, Signal, OnInit } from '@angular/core';
+import { Component, inject, HostListener, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit, faEllipsisVertical, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -15,12 +15,10 @@ import { ColumnDirective } from '../../shared/directives/column.directive';
 import { ClientsService } from '../../services/clients.service';
 import { NotificationService } from '../../services/notification.service';
 
-// import { ResponseModel } from '../../shared/types';
-
-import UserModel from '../../models/user-model';
+import ClientModel from '../../models/user-model';
 
 @Component({
-  selector: 'app-users-management',
+  selector: 'app-clients-management',
   imports: [
     ManagementSideContentActionsComponent,
     CommonModule,
@@ -30,10 +28,10 @@ import UserModel from '../../models/user-model';
     AddClientComponent,
     EditClientComponent
   ],
-  templateUrl: './users-management.component.html',
-  styleUrl: './users-management.component.scss'
+  templateUrl: './clients-management.component.html',
+  styleUrl: './clients-management.component.scss'
 })
-export class UsersManagementComponent implements OnInit {
+export class ClientsManagementComponent implements OnInit {
   constructor() {
     library.add(faEdit, faEllipsisVertical, faEye, faTrash);
   }
@@ -44,7 +42,7 @@ export class UsersManagementComponent implements OnInit {
   faTrash = faTrash;
 
   pageTitle: string = 'Clients Management';
-  pageSubtitle: string = 'Manage your clients and bla-bla-bla';
+  pageSubtitle: string = 'Manage and organize your client relationships';
 
   headingLabel: string = 'All Clients';
   headingSublabel: string = '';
@@ -58,43 +56,43 @@ export class UsersManagementComponent implements OnInit {
   mainActionButtonName: string = 'add-client';
   mainActionButtonLabel: string = 'Add Client';
 
-  users = signal<UserModel[]>([]);
-  usersLength = signal<number>(0);
+  clients = signal<ClientModel[]>([]);
+  clientsLength = signal<number>(0);
   ButtonTypes: typeof ButtonType = ButtonType;
 
   showContextMenu: boolean = false;
   contextMenuPosition: { x: number; y: number } = { x: 0, y: 0 };
-  selectedUser: UserModel | null = null;
+  selectedClient: ClientModel | null = null;
 
-  usersService = inject(ClientsService);
+  clientsService = inject(ClientsService);
   notificationService = inject(NotificationService);
 
   isLoading = signal(false);
 
-  userId: string = '';
+  clientId: string = '';
 
-  openAddUserModal() {
+  openAddClientModal() {
     this.showAddClientModal = true;
   }
 
-  closeAddUserModal() {
+  closeAddClientModal() {
     this.showAddClientModal = false;
   }
 
-  openEditUserModal() {
+  openEditClientModal() {
     this.showEditClientModal = true;
-    this.userId = this.selectedUser!.id;
+    this.clientId = this.selectedClient!.id;
   }
 
-  closeEditUserModal() {
+  closeEditClientModal() {
     this.showEditClientModal = false;
   }
 
-  onMoreActionsClick(event: MouseEvent, user: UserModel) {
+  onMoreActionsClick(event: MouseEvent, client: ClientModel) {
     event.stopPropagation();
-    this.selectedUser = user;
+    this.selectedClient = client;
 
-    const target = document.querySelector('.users-management__actions-icon') as HTMLElement;
+    const target = event.currentTarget as HTMLElement;
     const rect = target.getBoundingClientRect();
 
     this.contextMenuPosition = {
@@ -113,23 +111,23 @@ export class UsersManagementComponent implements OnInit {
     this.showContextMenu = true;
   }
 
-  onViewUser() {
+  onViewClient() {
     this.hideContextMenu();
   }
 
-  onEditUser() {
-    this.openEditUserModal();
+  onEditClient() {
+    this.openEditClientModal();
     this.hideContextMenu();
   }
 
-  onDeleteUser() {
-    this.deleteClient(this.selectedUser!.id);
+  onDeleteClient() {
+    this.deleteClient(this.selectedClient!.id);
     this.hideContextMenu();
   }
 
   hideContextMenu() {
     this.showContextMenu = false;
-    this.selectedUser = null;
+    this.selectedClient = null;
   }
 
   ngOnInit() {
@@ -138,21 +136,21 @@ export class UsersManagementComponent implements OnInit {
 
   onClientCreated() {
     this.fetchAllClients();
-    this.closeAddUserModal();
+    this.closeAddClientModal();
   }
 
   fetchAllClients() {
     this.isLoading.set(true);
 
-    this.usersService.fetchAllClients().subscribe({
+    this.clientsService.fetchAllClients().subscribe({
       next: res => {
         const { data } = res;
-        this.users.set(data);
-        this.usersLength.set(data.length);
-        this.headingSublabel = this.usersLength().toString();
+        this.clients.set(data);
+        this.clientsLength.set(data.length);
+        this.headingSublabel = this.clientsLength().toString();
       },
-      error: error => {
-        this.notificationService.showError(error.message);
+      error: _error => {
+        this.notificationService.showError('Failed to fetch clients. Please try again.');
       },
       complete: () => {
         this.isLoading.set(false);
@@ -163,30 +161,29 @@ export class UsersManagementComponent implements OnInit {
   deleteClient(clientId: string) {
     this.isLoading.set(true);
 
-    this.usersService.deleteClient(clientId).subscribe({
-      next: res => {},
-      error: error => {
-        this.notificationService.showError(error.message);
+    this.clientsService.deleteClient(clientId).subscribe({
+      next: _res => {},
+      error: _error => {
+        this.notificationService.showError('Failed to delete client. Please try again.');
       },
       complete: () => {
         this.isLoading.set(false);
         this.notificationService.showSuccess('Client deleted successfully');
 
-        this.users.update(users => users.filter(user => user.id !== clientId));
-        console.log(this.users().length);
-
-        this.usersLength.set(this.users().length);
+        this.clients.update(clients => clients.filter(client => client.id !== clientId));
+        this.clientsLength.set(this.clients().length);
+        this.headingSublabel = this.clientsLength().toString();
       }
     });
   }
 
   @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
+  onDocumentClick(_event: MouseEvent) {
     this.hideContextMenu();
   }
 
   @HostListener('window:resize', ['$event'])
-  onWindowResize(event: Event) {
+  onWindowResize(_event: Event) {
     if (this.showContextMenu) {
       this.hideContextMenu();
     }

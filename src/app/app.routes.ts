@@ -7,8 +7,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { UsersManagementComponent } from './users-management/users-management.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
+import { ClientsManagementComponent } from './clients-management/clients-management.component';
 import { ManagersComponent } from './managers/managers.component';
 import { DealsComponent } from './deals/deals.component';
 import { authGuard, guestGuard } from '../services/auth.guard';
@@ -55,7 +54,7 @@ export const routes: Routes = [
       },
       {
         path: 'clients',
-        component: UsersManagementComponent
+        component: ClientsManagementComponent
       },
       {
         path: 'managers',

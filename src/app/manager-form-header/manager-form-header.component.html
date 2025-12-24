@@ -1,0 +1,7 @@
+<div class="manager-form-header">
+  <div class="manager-form-header__title-wrapper">
+    <h1 class="manager-form-header__title">{{ title }}</h1>
+    <span class="manager-form-header__subtitle" *ngIf="subtitle">{{ subtitle }}</span>
+  </div>
+  <fa-icon [icon]="faTimes" class="manager-form-header__close-icon" (click)="closeModal()" />
+</div>
