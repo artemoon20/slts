@@ -13,7 +13,7 @@ import { ButtonType } from '../../shared/constants/app-constants';
 export class ManagementSideContentActionsComponent {
   @Input() headingLabel!: string;
   @Input() headingSublabel!: string;
-  
+
   @Input() isSearchVisible: boolean = false;
   @Input() isFilterVisible: boolean = false;
   @Input() isMainActionVisible: boolean = false;

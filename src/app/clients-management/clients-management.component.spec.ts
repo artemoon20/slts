@@ -9,8 +9,7 @@ describe('UsersManagementComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [UsersManagementComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UsersManagementComponent);
     component = fixture.componentInstance;

@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './auth-header.component.html',
   styleUrl: './auth-header.component.scss'
 })
-export class AuthHeaderComponent {
-
-}
+export class AuthHeaderComponent {}

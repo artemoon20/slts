@@ -1,0 +1,42 @@
+@import '../../shared/styles/vars.scss';
+
+.manager-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 30px;
+
+  &__title-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  &__title {
+    font-size: 22px;
+    color: $accent;
+    text-transform: capitalize;
+  }
+
+  &__subtitle {
+    font-size: 12px;
+    color: $accent;
+    opacity: 0.5;
+    text-transform: lowercase;
+    display: block;
+    padding-bottom: 4px;
+  }
+
+  &__close-icon {
+    color: $accentLight;
+
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      color: $accent;
+      transition: 0.2s ease-in;
+      cursor: pointer;
+    }
+  }
+}

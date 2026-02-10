@@ -1,41 +1,41 @@
-import { USER_STATUSES, USER_GENDERS, ClientRoleType } from '../shared/constants/app-constants';
+import {
+  USER_STATUSES,
+  USER_GENDERS,
+  CLIENT_PRIORITY,
+  CLIENT_SOURCE
+} from '../shared/constants/app-constants';
 
-type BankInfo = {
-    cardNumber: string;
-    expiryDate: string;
-    currency: string;
+// Manager Model Interface
+export interface ManagerModel {
+  id: string;
+  organizationId: string | null;
+  firstName: string;
+  lastName: string | null;
+  email: string;
+  organizationCustomRoleId: string | null;
+  roleId: number;
+  status: USER_STATUSES;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-type CompanyInfo = {
-    companyName: string;
-    department: string;
-    position: string;
+interface ClientModel {
+  id: string;
+  organizationId: string | null;
+  managerId: string | null;
+  firstName: string;
+  lastName: string;
+  birthday: Date | null;
+  email: string;
+  address: string | null;
+  status: USER_STATUSES;
+  phone: string | null;
+  gender: USER_GENDERS | null;
+  notes: string | null;
+  source: CLIENT_SOURCE | null;
+  priority: CLIENT_PRIORITY | null;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-type AddressInfo = {
-    country: string;
-    city: string;
-    zip: string;
-    address: string;
-    state: string;
-}
-
-interface UserModel {
-    id: string;
-    firstName: string;
-    lastName: string;
-    birthDate: Date | null;
-    email: string;
-    password: string;
-    status: USER_STATUSES;
-    role: ClientRoleType;
-    phone: string | null;
-    gender: USER_GENDERS | null;
-    bankInfo: BankInfo;
-    companyInfo: CompanyInfo;
-    addressInfo: AddressInfo;
-    createdAt: Date;
-    updatedAt: Date;
-}
-
-export default UserModel;
+export default ClientModel;

@@ -6,14 +6,12 @@
         (closeModalEmitter)="closeModal()" />
     <app-client-form-body 
         class="client-form__body" 
-        [clientForm]="clientForm"
-        (formSubmit)="onSubmit()" />
+        [clientForm]="clientForm" />
     <app-client-form-footer 
         class="client-form__footer" 
         [cancelButtonText]="cancelButtonText"
         [confirmButtonText]="confirmButtonText"
         [isLoading]="isLoading"
         (closeModalEmitter)="closeModal()"
-        (submitFormEmitter)="onSubmit()"
-    />
+        (submitFormEmitter)="onSubmit()" />
 </div>

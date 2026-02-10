@@ -1,22 +1,22 @@
 @import '../../shared/styles/vars.scss';
 
 .client-form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    background-color: #fff;
+  background-color: #fff;
 
-    border-radius: 5px;
-    padding: 35px;
+  border-radius: 5px;
+  padding: 35px;
 
-    border: 1px solid $lightGray;
+  border: 1px solid $lightGray;
 
-    min-width: 625px;
+  min-width: 1025px;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    &__header {
-        margin-bottom: 30px;
-    }
+  &__header {
+    margin-bottom: 30px;
+  }
 }

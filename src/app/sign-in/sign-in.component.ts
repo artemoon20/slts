@@ -9,6 +9,4 @@ import { SignInFormComponent } from '../sign-in-form/sign-in-form.component';
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })
-export class SignInComponent {
-
-}
+export class SignInComponent {}

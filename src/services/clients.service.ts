@@ -5,31 +5,40 @@ import { catchError, throwError } from 'rxjs';
 import { BASE_API_URL } from '../shared/constants/app-constants';
 import { ResponseModel } from '../shared/types';
 
-import UserModel from '../models/user-model';
-import { CreateClientRequest } from '../models/client-form.model';
+import ClientModel from '../models/user-model';
+import { ClientFormModel } from '../models/client-form.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientsService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   fetchAllClients() {
-    return this.http.get<ResponseModel<UserModel[]>>(`${BASE_API_URL}/clients/get/all`);
+    return this.http.get<ResponseModel<ClientModel[]>>(`${BASE_API_URL}/clients`);
   }
 
   fetchClientById(clientId: string) {
-    return this.http.get<ResponseModel<UserModel>>(`${BASE_API_URL}/clients/get/${clientId}`);
+    return this.http.get<ResponseModel<ClientModel>>(`${BASE_API_URL}/clients/${clientId}`);
   }
 
-  createClient(clientData: CreateClientRequest) {
-    return this.http.post<ResponseModel<UserModel>>(`${BASE_API_URL}/clients/create`, clientData);
+  createClient(clientData: Partial<ClientFormModel>) {
+    return this.http.post<ResponseModel<ClientModel>>(`${BASE_API_URL}/clients/create`, clientData);
   }
 
-  updateClient(clientId: string, clientData: CreateClientRequest) {
-    return this.http.put<ResponseModel<UserModel>>(`${BASE_API_URL}/clients/update/${clientId}`, clientData).pipe(
-      catchError((error) => {
+  updateClient(clientId: string, clientData: Partial<ClientFormModel>) {
+    return this.http
+      .put<ResponseModel<ClientModel>>(`${BASE_API_URL}/clients/update/${clientId}`, clientData)
+      .pipe(
+        catchError(error => {
+          return throwError(() => new Error(error.message));
+        })
+      );
+  }
+
+  deleteClient(clientId: string) {
+    return this.http.delete<ResponseModel<void>>(`${BASE_API_URL}/clients/delete/${clientId}`).pipe(
+      catchError(error => {
         return throwError(() => new Error(error.message));
       })
     );

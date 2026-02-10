@@ -1,0 +1,15 @@
+<div class="manager-form">
+  <app-manager-form-header
+    [title]="formHeaderTitle"
+    [subtitle]="formHeaderSubtitle"
+    (closeModalEmitter)="closeModal()"
+  />
+  <app-manager-form-body [managerForm]="managerForm" (formSubmit)="onSubmit()" />
+  <app-manager-form-footer
+    [cancelButtonText]="cancelButtonText"
+    [confirmButtonText]="confirmButtonText"
+    [isLoading]="isLoading"
+    (cancelEmitter)="closeModal()"
+    (confirmEmitter)="onSubmit()"
+  />
+</div>

@@ -1,93 +1,144 @@
 <form class="client-form-body" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
-    <div class="client-form-body__fields-group">
-        <span class="client-form-body__field-group-label">client info</span>
-        <div class="client-form-body__fields">
-            <div class="client-form-body__field-wrapper">
-                <div class="client-form-body__field-container">
-                    <input 
-                        [ngClass]="{'client-form-body__field--error': clientForm.get('firstName')?.touched && clientForm.get('firstName')?.errors?.['required']}"
-                        class="client-form-body__field" 
-                        type="text" 
-                        placeholder="First Name*" 
-                        [formControlName]="'firstName'" 
-                    />
-                </div>
-                <div class="client-form-body__field-container">
-                    <input class="client-form-body__field" type="text" placeholder="Last Name" [formControlName]="'lastName'" />
-                </div>
-                <div class="client-form-body__field-container">
-                    <input class="client-form-body__field" type="date" placeholder="Birth Date" [formControlName]="'birthDate'" />
-                </div>
-            </div>
-            <div class="client-form-body__field-wrapper">
-                <div class="client-form-body__field-container">
-                    <input 
-                        [ngClass]="{'client-form-body__field--error': clientForm.get('email')?.touched && clientForm.get('email')?.errors?.['required'] || clientForm.get('email')?.touched && clientForm.get('email')?.errors?.['email']}"
-                        class="client-form-body__field" 
-                        type="email" 
-                        placeholder="Email*" 
-                        [formControlName]="'email'" 
-                    />
-                </div>
-                <div class="client-form-body__field-container">
-                    <input class="client-form-body__field" type="tel" placeholder="Phone" [formControlName]="'phone'" />
-                </div>
-            </div>
-            <div class="client-form-body__field-wrapper">
-                <div class="client-form-body__field-container">
-                    <app-select
-                        [options]="roleOptions"
-                        placeholder="Role"
-                        [formControlName]="'role'"
-                        [disabled]="false"
-                    />
-                </div>
-                <div class="client-form-body__field-container">
-                    <app-select
-                        [options]="genderOptions"
-                        placeholder="Gender"
-                        [formControlName]="'gender'"
-                        [disabled]="false"
-                    />
-                </div>
-            </div>
+  <div class="client-form-body__fields-group">
+    <span class="client-form-body__field-group-label">Personal Information</span>
+    <div class="client-form-body__fields">
+      <div class="client-form-body__field-wrapper">
+        <div class="client-form-body__field-container">
+          <label class="client-form-body__field-label">First Name *</label>
+          <input
+            [ngClass]="{
+              'client-form-body__field--error':
+                clientForm.get('firstName')?.touched &&
+                clientForm.get('firstName')?.errors?.['required']
+            }"
+            class="client-form-body__field"
+            type="text"
+            placeholder="Enter first name"
+            [formControlName]="'firstName'"
+          />
         </div>
-    </div>
+        <div class="client-form-body__field-container">
+          <label class="client-form-body__field-label">Last Name</label>
+          <input
+            class="client-form-body__field"
+            type="text"
+            placeholder="Enter last name"
+            [formControlName]="'lastName'"
+          />
+        </div>
+      </div>
 
-    <div class="client-form-body__fields-group">
-        <span class="client-form-body__field-group-label">address info</span>
-        <div class="client-form-body__fields">
-            <div class="client-form-body__field-wrapper">
-                <input class="client-form-body__field" type="text" placeholder="Country" name="country" [formControlName]="'country'" />
-                <input class="client-form-body__field" type="text" placeholder="City" name="city" [formControlName]="'city'" />
-                <input class="client-form-body__field" type="text" placeholder="Postal Code" name="zip" [formControlName]="'zip'" />
-            </div>
-            <div class="client-form-body__field-wrapper">
-                <input class="client-form-body__field" type="text" placeholder="Address" name="address" [formControlName]="'address'" />
-                <input class="client-form-body__field" type="text" placeholder="State" name="state" [formControlName]="'state'" />
-            </div>
+      <div class="client-form-body__field-wrapper">
+        <div class="client-form-body__field-container">
+          <label class="client-form-body__field-label">Email</label>
+          <input
+            [ngClass]="{
+              'client-form-body__field--error':
+                clientForm.get('email')?.touched && clientForm.get('email')?.errors?.['email']
+            }"
+            class="client-form-body__field"
+            type="email"
+            placeholder="Enter email address"
+            [formControlName]="'email'"
+          />
         </div>
-    </div>
+        <div class="client-form-body__field-container">
+          <label class="client-form-body__field-label">Phone</label>
+          <input
+            class="client-form-body__field"
+            type="tel"
+            placeholder="Enter phone number"
+            [formControlName]="'phone'"
+          />
+        </div>
+      </div>
 
-    <div class="client-form-body__fields-group">
-        <span class="client-form-body__field-group-label">bank info</span>
-        <div class="client-form-body__fields">
-            <div class="client-form-body__field-wrapper">
-                <input class="client-form-body__field" type="text" placeholder="Card Number" name="cardNumber" [formControlName]="'cardNumber'" />
-                <input class="client-form-body__field" type="text" placeholder="Expiry Date" name="expiry" [formControlName]="'expiryDate'" />
-                <input class="client-form-body__field" type="text" placeholder="Currency" name="currency" [formControlName]="'currency'" />
-            </div>
+      <div class="client-form-body__field-wrapper">
+        <div class="client-form-body__field-container">
+          <label class="client-form-body__field-label">Birthday</label>
+          <input class="client-form-body__field" type="date" [formControlName]="'birthday'" />
         </div>
-    </div>
+        <div class="client-form-body__field-container">
+          <label class="client-form-body__field-label">Gender</label>
+          <app-select
+            [options]="genderOptions"
+            placeholder="Gender"
+            [formControlName]="'gender'"
+            [disabled]="false"
+          />
+        </div>
+      </div>
 
-    <div class="client-form-body__fields-group">
-        <span class="client-form-body__field-group-label">company info</span>
-        <div class="client-form-body__fields">
-            <div class="client-form-body__field-wrapper">
-                <input class="client-form-body__field" type="text" placeholder="Company Name" name="companyName" [formControlName]="'companyName'" />
-                <input class="client-form-body__field" type="text" placeholder="Department" name="department" [formControlName]="'department'" />
-                <input class="client-form-body__field" type="text" placeholder="Position" name="position" [formControlName]="'position'" />
-            </div>
+      <div class="client-form-body__field-wrapper">
+        <div class="client-form-body__field-container client-form-body__field-container--full">
+          <label class="client-form-body__field-label">Address</label>
+          <input
+            class="client-form-body__field"
+            type="text"
+            placeholder="Enter full address"
+            [formControlName]="'address'"
+          />
         </div>
+      </div>
     </div>
+  </div>
+
+  <div class="client-form-body__fields-group">
+    <span class="client-form-body__field-group-label">Client Management</span>
+    <div class="client-form-body__fields">
+      <div class="client-form-body__field-wrapper">
+        <div class="client-form-body__field-container">
+          <label class="client-form-body__field-label">Status *</label>
+          <app-select
+            [options]="statusOptions"
+            placeholder="Status"
+            [formControlName]="'status'"
+            [disabled]="false"
+          />
+        </div>
+        <div class="client-form-body__field-container">
+          <label class="client-form-body__field-label">Priority *</label>
+          <app-select
+            [options]="priorityOptions"
+            placeholder="Priority"
+            [formControlName]="'priority'"
+            [disabled]="false"
+          />
+        </div>
+      </div>
+
+      <div class="client-form-body__field-wrapper">
+        <div class="client-form-body__field-container">
+          <label class="client-form-body__field-label">Source</label>
+          <app-select
+            [options]="sourceOptions"
+            placeholder="Source"
+            [formControlName]="'source'"
+            [disabled]="false"
+          />
+        </div>
+        <div class="client-form-body__field-container">
+          <label class="client-form-body__field-label">Assign to Manager</label>
+          <app-select
+            [options]="managerOptions"
+            placeholder="Manager"
+            [formControlName]="'managerId'"
+            [disabled]="false"
+          />
+        </div>
+      </div>
+
+      <div class="client-form-body__field-wrapper">
+        <div class="client-form-body__field-container client-form-body__field-container--full">
+          <label class="client-form-body__field-label">Notes</label>
+          <textarea
+            class="client-form-body__field client-form-body__field--textarea"
+            placeholder="Add any additional notes or comments..."
+            rows="4"
+            [formControlName]="'notes'"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>

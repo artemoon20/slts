@@ -1,0 +1,99 @@
+<div class="managers">
+  <div class="managers__header">
+    <h1>{{ pageTitle }}</h1>
+    <span class="managers__subtitle">{{ pageSubtitle }}</span>
+  </div>
+  <app-management-side-content-actions
+    [headingLabel]="headingLabel"
+    [headingSublabel]="headingSublabel"
+    [isSearchVisible]="isSearchVisible"
+    [isMainActionVisible]="isMainActionVisible"
+    [mainActionButtonName]="mainActionButtonName"
+    [mainActionButtonLabel]="mainActionButtonLabel"
+    [buttonTypes]="ButtonTypes"
+    (mainActionClickEmitter)="openAddManagerModal()"
+  />
+  <app-table [contentToRender]="managers()" [isLoading]="isLoading">
+    <ng-template appColumn key="managerName" title="Manager Name" width="30%" let-item>
+      <div class="managers__manager-name-wrapper">
+        <img
+          class="managers__manager-avatar"
+          [src]="
+            'https://ui-avatars.com/api/?name=' +
+            item.firstName +
+            '+' +
+            item.lastName +
+            '&background=CD503C&color=fff&size=128'
+          "
+          alt="Manager Avatar"
+        />
+        <div class="managers__manager-name-info">
+          <p class="managers__manager-name">
+            {{ item.firstName }} {{ item.lastName }}
+          </p>
+          <span class="managers__manager-email">{{ item.email }}</span>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template appColumn key="email" title="Email" width="35%" let-item>
+      <span class="managers__email">{{ item.email }}</span>
+    </ng-template>
+    <ng-template appColumn key="status" title="Status" width="25%" let-item>
+      <span
+        class="managers__status"
+        [ngClass]="{
+          'managers__status--active': item.status === 'active',
+          'managers__status--inactive': item.status === 'inactive'
+        }"
+      >
+        {{ item.status }}
+      </span>
+    </ng-template>
+    <ng-template appColumn key="actions" width="10%" let-item>
+      <div
+        class="managers__actions"
+        (click)="onMoreActionsClick($event, item)"
+      >
+        <fa-icon [icon]="faEllipsisVertical" class="managers__actions-icon"></fa-icon>
+      </div>
+    </ng-template>
+  </app-table>
+</div>
+
+<!-- Context Menu -->
+<div
+  *ngIf="showContextMenu"
+  class="context-menu"
+  [style.left.px]="contextMenuPosition.x"
+  [style.top.px]="contextMenuPosition.y"
+  (click)="$event.stopPropagation()"
+>
+  <div class="context-menu__item" (click)="onViewManager()">
+    <fa-icon [icon]="faEye" class="context-menu__icon"></fa-icon>
+    <span class="context-menu__text">View Details</span>
+  </div>
+  <div class="context-menu__item" (click)="onEditManager()">
+    <fa-icon [icon]="faEdit" class="context-menu__icon"></fa-icon>
+    <span class="context-menu__text">Edit Manager</span>
+  </div>
+  <div class="context-menu__item context-menu__item--delete" (click)="onDeleteManager()">
+    <fa-icon [icon]="faTrash" class="context-menu__icon context-menu__icon--delete"></fa-icon>
+    <span class="context-menu__text">Delete</span>
+  </div>
+</div>
+
+<!-- Backdrop to close menu -->
+<div *ngIf="showContextMenu" class="context-menu-backdrop" (click)="hideContextMenu()"></div>
+
+<!-- Manager Modals -->
+<div class="managers__manager-modal-wrapper" *ngIf="showAddManagerModal">
+  <app-add-manager
+    (closeModalEmitter)="closeAddManagerModal()"
+    (onManagerCreated)="onManagerCreated()"
+  />
+</div>
+
+<div class="managers__edit-manager-modal-wrapper" *ngIf="showEditManagerModal">
+  <app-edit-manager (closeModalEmitter)="closeEditManagerModal()" [managerId]="managerId" />
+</div>
+

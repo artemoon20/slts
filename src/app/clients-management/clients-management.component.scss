@@ -1,0 +1,268 @@
+@import '../../shared/styles/vars.scss';
+
+.clients-management {
+  &__header {
+    margin-bottom: 30px;
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: $accent;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 15px;
+    color: $accentLight;
+    font-weight: 400;
+  }
+
+  &__client-name-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__client-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid $lightGray;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: $primary;
+      transform: scale(1.05);
+    }
+  }
+
+  &__client-name-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__client-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: $accent;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  &__client-email {
+    font-size: 13px;
+    color: $accentLight;
+    line-height: 1.2;
+  }
+
+  &__phone,
+  &__gender,
+  &__manager {
+    font-size: 14px;
+    color: $accentLight;
+    font-weight: 500;
+  }
+
+  &__manager {
+    font-style: italic;
+
+    &:not(:empty) {
+      font-style: normal;
+    }
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+
+    &--active {
+      background: rgba(38, 203, 175, 0.12);
+      color: #26cbaf;
+    }
+
+    &--inactive {
+      background: rgba(239, 68, 68, 0.12);
+      color: #ef4444;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+
+    &:hover {
+      background: rgba(205, 80, 60, 0.1);
+
+      .clients-management__actions-icon {
+        color: $primary;
+      }
+    }
+  }
+
+  &__actions-icon {
+    font-size: 18px;
+    color: $accentLight;
+    transition: all 0.3s ease;
+  }
+}
+
+// Context Menu Styles
+.context-menu {
+  position: fixed;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 8px;
+  z-index: 1000;
+  min-width: 180px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    margin-bottom: 2px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    &--delete:hover {
+      background-color: rgba(239, 68, 68, 0.08);
+
+      .context-menu__icon--delete {
+        color: #ef4444;
+      }
+
+      .context-menu__text {
+        color: #ef4444;
+      }
+    }
+  }
+
+  &__icon {
+    font-size: 15px;
+    color: $accentLight;
+    width: 20px;
+    transition: color 0.2s ease;
+
+    &--delete {
+      color: $accentLight;
+    }
+  }
+
+  &__text {
+    font-size: 14px;
+    color: $accent;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+}
+
+.context-menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  background: transparent;
+}
+
+.clients-management__client-modal-wrapper,
+.clients-management__edit-client-modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  background: rgba($accent, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Responsive Design
+@media (max-width: $screen-lg-width) {
+  .clients-management {
+    &__client-name-wrapper {
+      gap: 12px;
+    }
+
+    &__client-avatar {
+      width: 40px;
+      height: 40px;
+    }
+
+    &__client-name {
+      font-size: 14px;
+    }
+
+    &__client-email {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: $screen-md-width) {
+  .clients-management {
+    &__header h1 {
+      font-size: 26px;
+    }
+
+    &__subtitle {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: $screen-xs-width) {
+  .clients-management {
+    &__header h1 {
+      font-size: 22px;
+    }
+
+    &__client-name-wrapper {
+      gap: 10px;
+    }
+
+    &__client-avatar {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  .context-menu {
+    min-width: 160px;
+  }
+}

@@ -1,0 +1,16 @@
+<div class="edit-manager">
+  @if (isLoading()) {
+    <app-loader />
+  }
+  @else {
+    <app-manager-form
+      [formHeaderTitle]="formHeaderTitle"
+      [cancelButtonText]="'Cancel'"
+      [confirmButtonText]="'Save Changes'"
+      [managerData]="manager"
+      (closeModalEmitter)="closeModal()"
+      (onManagerFormSubmit)="updateManager($event)"
+      [isLoading]="isLoading()"
+    />
+  }
+</div>

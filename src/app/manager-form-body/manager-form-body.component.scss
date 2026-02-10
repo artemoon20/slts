@@ -1,0 +1,109 @@
+@import '../../shared/styles/vars.scss';
+
+.manager-form-body {
+  &__field {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: $accent;
+    background: #ffffff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &::placeholder {
+      color: $accentLight;
+      opacity: 0.5;
+      font-weight: 400;
+    }
+
+    &:hover {
+      border-color: rgba(205, 80, 60, 0.2);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba(205, 80, 60, 0.1);
+    }
+
+    &--error {
+      border-color: #ef4444;
+      border-width: 2px;
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+      }
+    }
+
+    &[type='date'] {
+      color-scheme: light;
+
+      &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__field-wrapper {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__field-container {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &--full {
+      flex: 1 1 100%;
+    }
+  }
+
+  &__field-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: $accent;
+    letter-spacing: 0.2px;
+    margin-bottom: 4px;
+  }
+
+  &__fields-group {
+    margin-bottom: 40px;
+    padding: 30px;
+    background: linear-gradient(145deg, #fafafa, #ffffff);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__field-group-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: $accent;
+    letter-spacing: 0.3px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(205, 80, 60, 0.2);
+  }
+}
+

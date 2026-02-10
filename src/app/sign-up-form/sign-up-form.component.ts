@@ -1,11 +1,17 @@
 import { Component, inject } from '@angular/core';
-import { FormGroup, AbstractControl, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  AbstractControl,
+  ReactiveFormsModule,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { AuthFormHeaderComponent } from '../auth-form-header/auth-form-header.component';
-import { SignUpResponse } from '../../models/auth-responses'; 
+import { SignUpResponse } from '../../models/auth-responses';
 import { NotificationService } from '../../services/notification.service';
 
 @Component({
@@ -20,19 +26,24 @@ export class SignUpFormComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private notificationService = inject(NotificationService);
+
   title = 'Sign Up';
   subtitle = 'Sign In';
   link = '/auth/sign-in';
 
   constructor(private fb: FormBuilder) {
-    this.signUpForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      name: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      repeatPassword: ['', [Validators.required, Validators.minLength(8)]],
-    }, {
-      validators: [this.passwordMatchValidator]
-    });
+    this.signUpForm = this.fb.group(
+      {
+        email: ['', [Validators.required, Validators.email]],
+        firstName: ['', [Validators.required]],
+        organizationName: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        repeatPassword: ['', [Validators.required, Validators.minLength(8)]]
+      },
+      {
+        validators: [this.passwordMatchValidator]
+      }
+    );
   }
 
   private passwordMatchValidator(control: AbstractControl) {
@@ -51,7 +62,7 @@ export class SignUpFormComponent {
   }
 
   formSubmit() {
-    const { email, password, name } = this.signUpForm.value;
+    const { email, password, firstName, organizationName } = this.signUpForm.value;
 
     if (this.signUpForm.invalid) {
       this.signUpForm.markAllAsTouched();
@@ -59,12 +70,20 @@ export class SignUpFormComponent {
       return;
     }
 
-    this.authService.signUp(email, password, 'admin', 'active', name).subscribe({
+    const formPayload = {
+      email,
+      password,
+      firstName,
+      organizationName
+    };
+
+    this.authService.signUp(formPayload).subscribe({
       next: (res: SignUpResponse) => {
-      if (res.accessToken) {
-        this.authService.setToken(res.accessToken);
-        this.router.navigate(['/dashboard']);
-      }
+        if (res.accessToken) {
+          this.authService.setToken(res.accessToken);
+
+          this.router.navigate(['/dashboard']);
+        }
       },
       error: (err: any) => {
         this.notificationService.show(err.error.message || 'Email or password is incorrect');

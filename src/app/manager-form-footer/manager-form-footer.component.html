@@ -1,0 +1,16 @@
+<div class="manager-form-footer">
+  <app-reusable-button
+    [buttonName]="'cancel'"
+    [label]="cancelButtonText"
+    [buttonType]="ButtonType.SECONDARY"
+    [isDisabled]="isLoading"
+    class="manager-form-footer__button-cancel"
+    (onButtonClickEmitter)="cancel()" />
+  <app-reusable-button
+    [buttonName]="'save'"
+    [label]="isLoading ? 'Saving...' : confirmButtonText"
+    [buttonType]="ButtonType.PRIMARY"
+    [isDisabled]="isLoading"
+    class="manager-form-footer__button-confirm"
+    (onButtonClickEmitter)="confirm()" />
+</div>

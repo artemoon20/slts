@@ -9,8 +9,7 @@ describe('SidebarDashboardNavigationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SidebarDashboardNavigationComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SidebarDashboardNavigationComponent);
     component = fixture.componentInstance;

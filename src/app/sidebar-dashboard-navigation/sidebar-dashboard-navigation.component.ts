@@ -3,7 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faDashboard, faUsers, faChartLine, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faDashboard,
+  faUsers,
+  faUserTie,
+  faHandshake,
+  faSignOut,
+  faUser
+} from '@fortawesome/free-solid-svg-icons';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -17,29 +24,35 @@ export class SidebarDashboardNavigationComponent {
   private authService = inject(AuthService);
 
   constructor() {
-    library.add(faDashboard, faUsers, faChartLine);
+    library.add(faDashboard, faUsers, faUserTie, faHandshake);
   }
 
   faDashboard = faDashboard;
   faUsers = faUsers;
-  faChartLine = faChartLine;
+  faUserTie = faUserTie;
+  faHandshake = faHandshake;
 
   navigationItems = [
-    // {
-    //   icon: faDashboard,
-    //   title: 'Dashboard',
-    //   path: '/dashboard'
-    // },
+    {
+      icon: faDashboard,
+      title: 'Dashboard',
+      path: '/dashboard'
+    },
     {
       icon: faUsers,
-      title: 'Users',
-      path: '/dashboard/users'
+      title: 'Clients',
+      path: '/dashboard/clients'
     },
-    // {
-    //   icon: faChartLine,
-    //   title: 'Analytics',
-    //   path: '/dashboard/analytics'
-    // }
+    {
+      icon: faUserTie,
+      title: 'Managers',
+      path: '/dashboard/managers'
+    },
+    {
+      icon: faHandshake,
+      title: 'Deals',
+      path: '/dashboard/deals'
+    }
   ];
 
   bottomNavigationItems = [

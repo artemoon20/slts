@@ -1,4 +1,12 @@
-import { AfterContentInit, Component, ContentChildren, Input, QueryList, signal, Signal } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  Input,
+  QueryList,
+  signal,
+  Signal
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -22,7 +30,7 @@ export class TableComponent implements AfterContentInit {
 
   @Input() contentToRender: any[] = [];
   @Input() isLoading: Signal<boolean> = signal(false);
-  
+
   @ContentChildren(ColumnDirective) columnDefs!: QueryList<ColumnDirective>;
   columns: ColumnConfig[] = [];
 
@@ -31,7 +39,7 @@ export class TableComponent implements AfterContentInit {
       key: col.key,
       title: col.title,
       width: col.width,
-      template: col.template,
+      template: col.template
     }));
   }
 }

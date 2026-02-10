@@ -1,3 +1,27 @@
 <div class="dashboard">
-    <h1>Dashboard</h1>
+  <h1>Dashboard</h1>
+
+  <div class="dashboard__content">
+    <a [routerLink]="'/dashboard/clients'" class="dashboard__content-item">
+      <fa-icon [icon]="faUsers" class="dashboard__content-item-icon"></fa-icon>
+      <div class="dashboard__content-item-info">
+        <h2>Clients</h2>
+        <p>100</p>
+      </div>
+    </a>
+    <a [routerLink]="'/dashboard/managers'" class="dashboard__content-item">
+      <fa-icon [icon]="faUserTie" class="dashboard__content-item-icon"></fa-icon>
+      <div class="dashboard__content-item-info">
+        <h2>Managers</h2>
+        <p>20</p>
+      </div>
+    </a>
+    <a [routerLink]="'/dashboard/deals'" class="dashboard__content-item">
+      <fa-icon [icon]="faHandshake" class="dashboard__content-item-icon"></fa-icon>
+      <div class="dashboard__content-item-info">
+        <h2>Deals</h2>
+        <p>10</p>
+      </div>
+    </a>
+  </div>
 </div>

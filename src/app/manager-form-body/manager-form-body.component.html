@@ -1,0 +1,91 @@
+<form class="manager-form-body" [formGroup]="managerForm" (ngSubmit)="onSubmit()">
+  <div class="manager-form-body__fields-group">
+    <span class="manager-form-body__field-group-label">Personal Information</span>
+    <div class="manager-form-body__fields">
+      <div class="manager-form-body__field-wrapper">
+        <div class="manager-form-body__field-container">
+          <label class="manager-form-body__field-label">First Name *</label>
+          <input
+            [ngClass]="{
+              'manager-form-body__field--error':
+                managerForm.get('firstName')?.touched &&
+                managerForm.get('firstName')?.errors?.['required']
+            }"
+            class="manager-form-body__field"
+            type="text"
+            placeholder="Enter first name"
+            [formControlName]="'firstName'"
+          />
+        </div>
+        <div class="manager-form-body__field-container">
+          <label class="manager-form-body__field-label">Last Name</label>
+          <input
+            class="manager-form-body__field"
+            type="text"
+            placeholder="Enter last name"
+            [formControlName]="'lastName'"
+          />
+        </div>
+      </div>
+
+      <div class="manager-form-body__field-wrapper">
+        <div class="manager-form-body__field-container client-form-body__field-container--full">
+          <label class="manager-form-body__field-label">Email *</label>
+          <input
+            [ngClass]="{
+              'manager-form-body__field--error':
+                managerForm.get('email')?.touched && managerForm.get('email')?.errors?.['email']
+            }"
+            class="manager-form-body__field"
+            type="email"
+            placeholder="Enter email address"
+            [formControlName]="'email'"
+          />
+        </div>
+      </div>
+
+      <div class="manager-form-body__field-wrapper">
+        <div class="manager-form-body__field-container client-form-body__field-container--full">
+          <label class="manager-form-body__field-label">Password *</label>
+          <input
+            [ngClass]="{
+              'manager-form-body__field--error':
+                managerForm.get('password')?.touched &&
+                managerForm.get('password')?.errors?.['password']
+            }"
+            class="manager-form-body__field"
+            type="password"
+            placeholder="Enter password"
+            [formControlName]="'password'"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="manager-form-body__fields-group">
+    <span class="manager-form-body__field-group-label">Manager Settings</span>
+    <div class="manager-form-body__fields">
+      <div class="manager-form-body__field-wrapper">
+        <div class="manager-form-body__field-container">
+          <label class="manager-form-body__field-label">Role *</label>
+          <app-select
+            [options]="managerRoleOptions"
+            placeholder="Select role"
+            [formControlName]="'roleId'"
+            [disabled]="false"
+          />
+        </div>
+        <div class="manager-form-body__field-container">
+          <label class="manager-form-body__field-label">Status *</label>
+          <app-select
+            [options]="statusOptions"
+            placeholder="Select status"
+            [formControlName]="'status'"
+            [disabled]="false"
+          />
+        </div>
+      </div>
+    </div>
+  </div> -->
+</form>
